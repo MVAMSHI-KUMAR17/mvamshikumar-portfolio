@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>M. Vamshi Kumar | Electrical Engineer</title>
+    <title>M.Vamshi Kumar | Electrical Engineer</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,38 +25,93 @@
 </head>
 
 <body>
+<!-- ================= LOADER ================= -->
 
-<nav>
+<div id="loader">
 
-<div class="logo">
+<div class="loader-content">
 
-M. Vamshi Kumar
+<div class="loader-circle"></div>
+
+<h2>M.Vamshi Kumar</h2>
+
+<p>Loading Portfolio...</p>
 
 </div>
 
-<ul>
+</div>
 
-<li><a href="#">Home</a></li>
+<nav class="navbar navbar-expand-lg fixed-top custom-navbar">
 
-<li><a href="#">About</a></li>
+<div class="container">
 
-<li><a href="#">Education</a></li>
+<a class="navbar-brand" href="#home">
+M.Vamshi Kumar
+</a>
 
-<li><a href="#">Skills</a></li>
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
 
-<li><a href="#">Projects</a></li>
+<span class="navbar-toggler-icon"></span>
 
-<li><a href="#">Research</a></li>
+</button>
 
-<li><a href="#">Awards</a></li>
+<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 
-<li><a href="#">Contact</a></li>
+<ul class="navbar-nav ms-auto">
+
+<li class="nav-item">
+<a class="nav-link active" href="#home">Home</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#about">About</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#education">Education</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#skills">Skills</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#projects">Projects</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#research">Research</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#awards">Awards</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#certifications">Certifications</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#journey">Journey</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#contact">Contact</a>
+</li>
+
+<button id="themeToggle" class="btn btn-outline-light ms-3">
+    <i class="fas fa-moon"></i>
+</button>
 
 </ul>
 
+</div>
+
+</div>
+
 </nav>
 
-<section class="hero">
+<section id="home" class="hero">
 
 <div class="container">
 
@@ -64,39 +119,106 @@ M. Vamshi Kumar
 
 <div class="col-lg-6 text-center" data-aos="fade-right">
 
-<img src="images/profile.jpg" class="profile">
+<img src="images/profile.jpg" class="profile" alt="Profile">
 
 </div>
 
-<div class="col-lg-6" data-aos="fade-left">
+<div class="col-lg-6 hero-content" data-aos="fade-left">
 
-<h4>Hello, I'm</h4>
+<h5>Hello, I'm</h5>
 
-<h1>M. Vamshi Kumar</h1>
+<h1>M.Vamshi Kumar</h1>
 
 <h3><span id="typing"></span></h3>
 
-<p>
-Electrical Engineering student passionate about
-renewable energy, power systems, smart grid technologies,
-and industrial automation.
+<p class="hero-description">
+B.Tech Electrical Engineering student at Brainware University with expertise in Renewable Energy, Power Systems, ETAP, Industrial Automation, and Electrical Design. Published research author, award-winning project developer, and passionate about building sustainable engineering solutions.
 </p>
 
-<div class="hero-buttons">
+<div class="hero-buttons mt-4">
 
-<a href="#" class="btn btn-primary btn-lg">Download Resume</a>
+<a href="resume/Resume.pdf"
+class="btn btn-primary btn-lg"
+target="_blank">
 
-<a href="https://www.linkedin.com/in/m-vamshi-kumar-647599320/" target="_blank" class="btn btn-outline-light btn-lg">LinkedIn</a>
+<i class="fa-solid fa-download"></i>
+
+Download Resume
+
+</a>
+
+<a href="https://www.linkedin.com/in/m-vamshi-kumar-647599320/"
+class="btn btn-outline-light btn-lg"
+target="_blank">
+
+<i class="fab fa-linkedin"></i>
+
+LinkedIn
+
+</a>
+
+</div>
+<div class="hero-badges mt-4">
+
+<span class="badge bg-primary p-2 m-1">
+🏆 Award Winner
+</span>
+
+<span class="badge bg-success p-2 m-1">
+📄 Research Author
+</span>
+
+<span class="badge bg-warning text-dark p-2 m-1">
+🤖 AI Certified
+</span>
+
+<span class="badge bg-info text-dark p-2 m-1">
+⚡ ETAP
+</span>
 
 </div>
 
 <div class="social-icons mt-4">
 
-<a href="#"><i class="fab fa-github"></i></a>
+<a href="https://github.com/MVAMSHI-KUMAR17" target="_blank">
+<i class="fab fa-github"></i>
+</a>
 
-<a href="https://www.linkedin.com/in/m-vamshi-kumar-647599320/" target="_blank"><i class="fab fa-linkedin"></i></a>
+<a href="mailto:vamshikumar172003@gmail.com">
+<i class="fas fa-envelope"></i>
+</a>
 
-<a href="#"><i class="fas fa-envelope"></i></a>
+<a href="https://www.linkedin.com/in/m-vamshi-kumar-647599320/" target="_blank">
+<i class="fab fa-linkedin"></i>
+</a>
+
+</div>
+
+<div class="row mt-5">
+
+<div class="col-4">
+
+<h2>5+</h2>
+
+<p>Projects</p>
+
+</div>
+
+<div class="col-4">
+
+<h2>2</h2>
+
+<p>Research</p>
+
+</div>
+
+<div class="col-4">
+
+<h2>1</h2>
+
+<p>Award</p>
+
+</div>
 
 </div>
 
@@ -107,6 +229,1023 @@ and industrial automation.
 </div>
 
 </section>
+
+<!-- ================= COUNTER ================= -->
+
+<section class="counter-section">
+
+<div class="container">
+
+<div class="row text-center">
+
+<div class="col-md-3">
+
+<h2 class="counter" data-target="5">0</h2>
+
+<p>Projects</p>
+
+</div>
+
+<div class="col-md-3">
+
+<h2 class="counter" data-target="2">0</h2>
+
+<p>Research Papers</p>
+
+</div>
+
+<div class="col-md-3">
+
+<h2 class="counter" data-target="2">0</h2>
+
+<p>Awards</p>
+
+</div>
+
+<div class="col-md-3">
+
+<h2 class="counter" data-target="1">0</h2>
+
+<p>Leadership Roles</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="about">
+
+    <div class="container">
+
+        <div class="about-title" data-aos="fade-up">
+            <h2>About Me</h2>
+        </div>
+
+        <div class="about-content" data-aos="fade-up">
+
+            <h3>Electrical Engineering Student & Research Author</h3>
+
+            <p>
+                I am <strong>M.Vamshi Kumar</strong>, currently pursuing
+                B.Tech in Electrical Engineering at Brainware University after
+                completing my Diploma in Electrical Engineering.
+            </p>
+
+            <p>
+                My interests include Renewable Energy, Power Systems,
+                Industrial Automation, Smart Grid Technology, ETAP,
+                Electrical Design and Sustainable Energy Solutions.
+            </p>
+
+            <p>
+                I am a Published Research Author and presented my research at
+                a National Conference. I also secured
+                <strong>2nd Prize at IEM Kolkata</strong> for my innovative
+                engineering project.
+            </p>
+
+            <p>
+                Apart from academics, I serve as an Executive Member of the
+                Student Welfare Committee and actively participate in technical
+                events, workshops and leadership activities.
+            </p>
+
+            <div class="about-details">
+
+<div class="about-card">
+<i class="fas fa-graduation-cap"></i>
+<h4>Education</h4>
+<p>B.Tech Electrical Engineering at Brainware University with a Diploma in Electrical Engineering.</p>
+</div>
+
+<div class="about-card">
+<i class="fas fa-solar-panel"></i>
+<h4>Specialization</h4>
+<p>Renewable Energy, Power Systems, ETAP, Industrial Automation and Electrical Design.</p>
+</div>
+
+<div class="about-card">
+<i class="fas fa-award"></i>
+<h4>Achievements</h4>
+<p>Published Research Author and 2nd Prize Winner at IEM Kolkata for an innovative engineering project.</p>
+</div>
+
+<div class="about-card">
+<i class="fas fa-users"></i>
+<h4>Leadership</h4>
+<p>Executive Member of the Student Welfare Committee with active participation in technical events and workshops.</p>
+</div>
+
+</div>
+
+        </div>
+
+</div>
+
+</section>
+
+<!-- ================= STATS ================= -->
+
+<section id="stats" class="stats">
+
+<div class="container">
+
+<div class="row text-center">
+
+<div class="col-md-3">
+
+<div class="stat-box">
+
+<h2>10+</h2>
+
+<p>Technical Skills</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="stat-box">
+
+<h2>2</h2>
+
+<p>Research Publications</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="stat-box">
+
+<h2>15+</h2>
+
+<p>Projects Completed</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="stat-box">
+
+<h2>5+</h2>
+
+<p>Certifications</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= EDUCATION ================= -->
+
+<section id="education" class="education">
+
+<div class="container">
+
+<div class="section-title" data-aos="fade-up">
+<h2>Education</h2>
+<p>My Academic Journey</p>
+</div>
+
+<div class="row gy-4">
+
+<div class="col-lg-6" data-aos="fade-right">
+
+<div class="edu-card">
+
+<h3>B.Tech in Electrical Engineering</h3>
+
+<h5>Brainware University</h5>
+
+<span>2025 – Present</span>
+
+<p>
+Currently pursuing Bachelor's degree in Electrical Engineering with
+focus on Power Systems, Renewable Energy,
+Industrial Automation, Smart Grid Technologies,
+Electrical Design and Research.
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-6" data-aos="fade-left">
+
+<div class="edu-card">
+
+<h3>Diploma in Electrical Engineering</h3>
+
+<h5>Brainware University</h5>
+
+<span>Completed</span>
+
+<p>
+Successfully completed Diploma in Electrical Engineering with strong
+foundation in Electrical Machines, Power Systems,
+Control Systems, Measurements, Electrical Design
+and Industrial Applications.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= SKILLS ================= -->
+
+<section id="skills">
+
+<div class="container">
+
+<div class="section-title" data-aos="fade-up">
+
+<h2>Technical Skills</h2>
+
+<p>Technologies and Software I work with</p>
+
+</div>
+
+<div class="row">
+
+<div class="col-lg-6">
+
+<div class="skill">
+
+<h5>Electrical Engineering</h5>
+
+<div class="progress">
+
+<div class="progress-bar bg-primary"
+style="width:95%">
+95%
+</div>
+
+</div>
+
+</div>
+
+<div class="skill">
+
+<h5>Power Systems</h5>
+
+<div class="progress">
+
+<div class="progress-bar bg-success"
+style="width:90%">
+90%
+</div>
+
+</div>
+
+</div>
+
+<div class="skill">
+
+<h5>Renewable Energy</h5>
+
+<div class="progress">
+
+<div class="progress-bar bg-warning"
+style="width:92%">
+92%
+</div>
+
+</div>
+
+</div>
+
+<div class="skill">
+
+<h5>Industrial Automation</h5>
+
+<div class="progress">
+
+<div class="progress-bar bg-info"
+style="width:88%">
+88%
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-6">
+
+<div class="skill">
+
+<h5>ETAP</h5>
+
+<div class="progress">
+
+<div class="progress-bar bg-danger"
+style="width:90%">
+90%
+</div>
+
+</div>
+
+</div>
+
+<div class="skill">
+
+<h5>MATLAB</h5>
+
+<div class="progress">
+
+<div class="progress-bar bg-secondary"
+style="width:85%">
+85%
+</div>
+
+</div>
+
+</div>
+
+<div class="skill">
+
+<h5>AutoCAD Electrical</h5>
+
+<div class="progress">
+
+<div class="progress-bar bg-dark"
+style="width:80%">
+80%
+</div>
+
+</div>
+
+</div>
+
+<div class="skill">
+
+<h5>MS Office</h5>
+
+<div class="progress">
+
+<div class="progress-bar"
+style="width:95%">
+95%
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= PROJECTS ================= -->
+
+<section id="projects" class="projects">
+
+<div class="container">
+
+<div class="section-title" data-aos="fade-up">
+<h2>Featured Projects</h2>
+<p>Engineering Projects & Research Work</p>
+</div>
+
+<div class="row gy-4">
+
+<!-- Project 1 -->
+
+<div class="col-lg-6" data-aos="fade-right">
+
+<div class="project-card">
+
+<img src="images/projects/solar.jpg" class="project-image" alt="Solar Project">
+
+<div class="project-body">
+
+<span class="badge bg-warning text-dark mb-3">
+🏆 Award Winning Project
+</span>
+
+<h3>Relay Based Solar Powered Street Light with Emergency Home Backup</h3>
+
+<p>
+Designed an innovative relay-controlled solar-powered street lighting
+system with emergency home backup. The project secured
+2nd Prize at IEM Kolkata.
+</p>
+
+<div class="project-tags">
+
+<span>Solar</span>
+
+<span>Relay</span>
+
+<span>Battery</span>
+
+<span>Inverter</span>
+
+<span>Electrical</span>
+
+</div>
+
+<br>
+
+<a href="resume/Solar_Project.pdf"
+target="_blank"
+class="btn btn-primary">
+
+<i class="fas fa-file-pdf"></i>
+
+View Project
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Project 2 -->
+
+<div class="col-lg-6" data-aos="fade-left">
+
+<div class="project-card">
+
+<img src="images/projects/etap.jpg" class="project-image" alt="ETAP">
+
+<div class="project-body">
+
+<span class="badge bg-success mb-3">
+
+Published Research
+
+</span>
+
+<h3>Electrical Power System Analysis using ETAP</h3>
+
+<p>
+
+Published research paper focusing on Load Flow Analysis,
+Power System Design and Simulation using ETAP software.
+
+</p>
+
+<div class="project-tags">
+
+<span>ETAP</span>
+
+<span>Load Flow</span>
+
+<span>Research</span>
+
+<span>Simulation</span>
+
+</div>
+
+<br>
+
+<a href="resume/ETAP_Research.pdf"
+target="_blank"
+class="btn btn-success">
+
+<i class="fas fa-file-pdf"></i>
+
+Read Research
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= GITHUB ================= -->
+
+<section id="github" class="github-section">
+
+<div class="container">
+
+<div class="section-title" data-aos="fade-up">
+
+<h2>GitHub Portfolio</h2>
+
+<p>Explore my engineering projects and source code</p>
+
+</div>
+
+<div class="github-card" data-aos="zoom-in">
+
+<i class="fab fa-github github-icon"></i>
+
+<h3>M. Vamshi Kumar</h3>
+
+<p>
+
+I actively use GitHub to showcase engineering projects,
+portfolio development, and future software & electrical engineering work.
+
+</p>
+
+<a href="https://github.com/MVAMSHI-KUMAR17"
+
+target="_blank"
+
+class="btn btn-dark btn-lg">
+
+<i class="fab fa-github"></i>
+
+Visit My GitHub
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= RESEARCH ================= -->
+
+<section id="research" class="research">
+
+<div class="container">
+
+<div class="section-title" data-aos="fade-up">
+
+<h2>Research & Publications</h2>
+
+<p>Published Research Work</p>
+
+</div>
+
+<div class="research-card" data-aos="zoom-in">
+
+<i class="fas fa-book-open research-icon"></i>
+
+<h3>Power System Analysis using ETAP</h3>
+
+<p>
+
+Published research focusing on Electrical Power System
+Analysis using ETAP Software including Load Flow Analysis,
+System Modeling, Network Optimization and Electrical Design.
+
+</p>
+
+<div class="research-tags">
+
+<span>Research</span>
+
+<span>ETAP</span>
+
+<span>IEEE Format</span>
+
+<span>Power System</span>
+
+</div>
+
+<a href="resume/ETAP_Research.pdf"
+
+class="btn btn-primary mt-4"
+
+target="_blank">
+
+Read Research Paper
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= AWARDS ================= -->
+
+<section id="awards" class="awards">
+
+<div class="container">
+
+<div class="section-title" data-aos="fade-up">
+
+<h2>Awards & Achievements</h2>
+
+<p>Recognition for Academic Excellence and Innovation</p>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-lg-4" data-aos="fade-up">
+
+<div class="award-card">
+
+<i class="fas fa-medal award-icon"></i>
+
+<h3>2nd Prize</h3>
+
+<h5>IEM Kolkata</h5>
+
+<p>
+
+Secured Second Prize for presenting an innovative
+Electrical Engineering project at IEM Kolkata.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+
+<div class="award-card">
+
+<i class="fas fa-book award-icon"></i>
+
+<h3>Research Author</h3>
+
+<h5>National Conference</h5>
+
+<p>
+
+Published a research paper and successfully presented
+research work at a National Level Conference.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-4" data-aos="fade-up" data-aos-delay="400">
+
+<div class="award-card">
+
+<i class="fas fa-users award-icon"></i>
+
+<h3>Leadership</h3>
+
+<h5>Student Welfare Committee</h5>
+
+<p>
+
+Executive Member actively participating in technical
+events, workshops and student leadership activities.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= CERTIFICATIONS ================= -->
+
+<section id="certifications" class="certifications">
+
+<div class="container">
+
+<div class="section-title" data-aos="fade-up">
+
+<h2>Certifications</h2>
+
+<p>Professional Learning & Certifications</p>
+
+</div>
+
+<div class="row">
+
+<div class="col-lg-6 mb-4" data-aos="zoom-in">
+
+<div class="certificate-card">
+
+<i class="fas fa-certificate certificate-icon"></i>
+
+<h3>Career Essentials in Generative AI</h3>
+
+<h5>Microsoft & LinkedIn Learning</h5>
+
+<p>
+
+Completed professional learning in Generative AI covering
+Artificial Intelligence, Generative AI fundamentals,
+responsible AI, and Computer Ethics.
+
+</p>
+
+<a href="resume/Generative_AI_Certificate.pdf"
+
+target="_blank"
+
+class="btn btn-primary">
+
+View Certificate
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= CONTACT ================= -->
+
+<section id="contact" class="contact">
+
+<div class="container">
+
+<div class="section-title" data-aos="fade-up">
+<h2>Contact Me</h2>
+<p>Let's Connect</p>
+</div>
+
+<div class="row">
+
+<div class="col-lg-6" data-aos="fade-right">
+
+<div class="contact-box">
+
+<h3>Get In Touch</h3>
+
+<p>
+I'm always interested in internships, research collaborations,
+engineering projects, and networking opportunities.
+Feel free to reach out.
+</p>
+
+<div class="contact-info">
+
+<p>
+<i class="fas fa-envelope"></i>
+<strong>Email:</strong>
+<a href="mailto:vamshikumar172003@gmail.com">
+vamshikumar172003@gmail.com
+</a>
+</p>
+
+<p>
+<i class="fab fa-linkedin"></i>
+<strong>LinkedIn:</strong>
+<a href="https://www.linkedin.com/in/m-vamshi-kumar-647599320/"
+target="_blank">
+View Profile
+</a>
+</p>
+
+<p>
+<i class="fab fa-github"></i>
+<strong>GitHub:</strong>
+<a href="https://github.com/MVAMSHI-KUMAR17"
+target="_blank">
+MVAMSHI-KUMAR17
+</a>
+</p>
+
+<p>
+<i class="fas fa-map-marker-alt"></i>
+<strong>Location:</strong>
+Kolkata, India
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-6" data-aos="fade-left">
+
+<form
+action="https://formsubmit.co/vamshikumar172003@gmail.com"
+method="POST"
+class="contact-form">
+
+<input type="hidden" name="_captcha" value="false">
+
+<input type="hidden" name="_next" value="https://mvamshi-kumar17.github.io/">
+
+<input type="hidden" name="_subject" value="New Portfolio Contact">
+
+<input
+type="text"
+name="name"
+class="form-control mb-3"
+placeholder="Your Name"
+required>
+
+<input
+type="email"
+name="email"
+class="form-control mb-3"
+placeholder="Your Email"
+required>
+
+<input
+type="text"
+name="subject"
+class="form-control mb-3"
+placeholder="Subject">
+
+<textarea
+name="message"
+class="form-control mb-3"
+rows="6"
+placeholder="Your Message"
+required></textarea>
+
+<button
+type="submit"
+class="btn btn-primary btn-lg w-100">
+<i class="fas fa-paper-plane"></i>
+Send Message
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= JOURNEY ================= -->
+
+<section id="journey" class="journey">
+
+<div class="container">
+
+<div class="section-title" data-aos="fade-up">
+
+<h2>My Journey</h2>
+
+<p>Academic & Professional Milestones</p>
+
+</div>
+
+<div class="timeline">
+
+<div class="timeline-item left" data-aos="fade-right">
+
+<div class="timeline-content">
+
+<h3>Diploma in Electrical Engineering</h3>
+
+<span>Brainware University</span>
+
+<p>
+Successfully completed Diploma in Electrical Engineering with practical knowledge in
+Electrical Machines, Measurements, Power Systems and Control Systems.
+</p>
+
+</div>
+
+</div>
+
+<div class="timeline-item right" data-aos="fade-left">
+
+<div class="timeline-content">
+
+<h3>B.Tech in Electrical Engineering</h3>
+
+<span>Brainware University | 2025 - Present</span>
+
+<p>
+Currently pursuing Bachelor's degree with focus on Renewable Energy,
+Power Systems, Industrial Automation and Smart Grid Technology.
+</p>
+
+</div>
+
+</div>
+
+<div class="timeline-item left" data-aos="fade-right">
+
+<div class="timeline-content">
+
+<h3>Research Publication</h3>
+
+<span>National Conference</span>
+
+<p>
+Published and presented research work on Electrical Power Systems using ETAP software.
+</p>
+
+</div>
+
+</div>
+
+<div class="timeline-item right" data-aos="fade-left">
+
+<div class="timeline-content">
+
+<h3>2nd Prize - IEM Kolkata</h3>
+
+<span>Engineering Project Competition</span>
+
+<p>
+Won Second Prize for the Relay-Based Solar Powered Street Light with Emergency Home Backup project.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<footer class="footer">
+
+<div class="container">
+
+<div class="row align-items-center">
+
+<div class="col-md-6">
+
+<h4>M.Vamshi Kumar</h4>
+
+<p>
+Electrical Engineering Student<br>
+Research Author<br>
+Renewable Energy Enthusiast
+</p>
+
+</div>
+
+<div class="col-md-6 text-md-end">
+
+<a href="https://github.com/MVAMSHI-KUMAR17" target="_blank">
+<i class="fab fa-github"></i>
+</a>
+
+<a href="https://www.linkedin.com/in/m-vamshi-kumar-647599320/" target="_blank">
+<i class="fab fa-linkedin"></i>
+</a>
+
+<a href="mailto:vamshikumar172003@gmail.com">
+<i class="fas fa-envelope"></i>
+</a>
+
+</div>
+
+</div>
+
+<hr>
+
+<p class="text-center mb-0">
+
+© 2026 M.Vamshi Kumar • All Rights Reserved
+
+</p>
+
+</div>
+
+</footer>
 
 <!-- Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -119,6 +1258,10 @@ and industrial automation.
 
 <!-- Your JavaScript -->
 <script src="js/script.js"></script>
+
+<button id="topBtn">
+<i class="fas fa-arrow-up"></i>
+</button>
 
 </body>
 
