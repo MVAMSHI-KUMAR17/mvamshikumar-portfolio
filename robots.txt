@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mvamshi-kumar17.github.io/mvamshikumar-portfolio/sitemap.xml
