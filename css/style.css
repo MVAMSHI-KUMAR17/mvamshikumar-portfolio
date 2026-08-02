@@ -309,6 +309,26 @@ animation:float 4s ease-in-out infinite;
 
 .hero h1{
 
+    font-size:74px;
+    font-weight:800;
+    line-height:1.05;
+    margin-bottom:20px;
+
+    background:linear-gradient(90deg,#ffffff,#38bdf8,#60a5fa);
+
+    background-clip:text;          /* Add this */
+    -webkit-background-clip:text;
+
+    color:transparent;             /* Add this */
+    -webkit-text-fill-color:transparent;
+
+    background-size:200%;
+    animation:gradientMove 6s linear infinite;
+
+}
+
+.hero h1{
+
 font-size:74px;
 
 font-weight:800;
@@ -2454,5 +2474,20 @@ background-position:100%;
 100%{
 background-position:0%;
 }
+
+}
+@keyframes gradientMove{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
 
 }
