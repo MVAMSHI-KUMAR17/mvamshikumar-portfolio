@@ -1,105 +1,177 @@
+// ================= AOS =================
 AOS.init();
 
-new Typed("#typing",{
-
-strings:[
-"Electrical Engineer",
-"Research Author",
-"Power System Enthusiast",
-"Renewable Energy Explorer"
-],
-
-typeSpeed:60,
-
-backSpeed:40,
-
-loop:true
-
+// ================= Typed.js =================
+new Typed("#typing", {
+    strings: [
+        "Electrical Engineer",
+        "Research Author",
+        "Power System Enthusiast",
+        "Renewable Energy Explorer"
+    ],
+    typeSpeed: 60,
+    backSpeed: 40,
+    loop: true
 });
-// Counter Animation
 
+// ================= Counter =================
 const counters = document.querySelectorAll(".counter");
 
 counters.forEach(counter => {
 
-counter.innerText="0";
+    counter.innerText = "0";
 
-const updateCounter=()=>{
+    const updateCounter = () => {
 
-const target=+counter.getAttribute("data-target");
+        const target = +counter.getAttribute("data-target");
+        const current = +counter.innerText;
+        const increment = target / 100;
 
-const c=+counter.innerText;
+        if (current < target) {
+            counter.innerText = Math.ceil(current + increment);
+            setTimeout(updateCounter, 20);
+        } else {
+            counter.innerText = target;
+        }
 
-const increment=target/100;
+    };
 
-if(c<target){
-
-counter.innerText=`${Math.ceil(c+increment)}`;
-
-setTimeout(updateCounter,20);
-
-}else{
-
-counter.innerText=target;
-
-}
-
-}
-
-updateCounter();
+    updateCounter();
 
 });
 
-const topBtn=document.getElementById("topBtn");
+// ================= Back To Top =================
+const topBtn = document.getElementById("topBtn");
 
-window.onscroll=function(){
+if (topBtn) {
 
-if(document.body.scrollTop>300||document.documentElement.scrollTop>300){
+    window.addEventListener("scroll", () => {
 
-topBtn.style.display="block";
+        if (window.scrollY > 300) {
+            topBtn.style.display = "block";
+        } else {
+            topBtn.style.display = "none";
+        }
 
-}else{
+    });
 
-topBtn.style.display="none";
+    topBtn.addEventListener("click", () => {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
 
 }
 
-}
+// ================= Loader =================
+window.addEventListener("load", () => {
 
-topBtn.onclick=function(){
+    const loader = document.getElementById("loader");
 
-window.scrollTo({
+    if (loader) {
 
-top:0,
+        loader.style.opacity = "0";
 
-behavior:"smooth"
+        setTimeout(() => {
+            loader.style.display = "none";
+        }, 800);
+
+    }
 
 });
 
-}
-window.addEventListener("load",function(){
-
-const loader=document.getElementById("loader");
-
-loader.style.opacity="0";
-
-setTimeout(()=>{
-
-loader.style.display="none";
-
-},800);
-
-});
+// ================= Theme Toggle =================
 const themeBtn = document.getElementById("themeToggle");
 
-themeBtn.addEventListener("click", () => {
+if (themeBtn) {
 
-    document.body.classList.toggle("light-mode");
+    themeBtn.addEventListener("click", () => {
 
-    if(document.body.classList.contains("light-mode")){
-        themeBtn.innerHTML='<i class="fas fa-sun"></i>';
+        document.body.classList.toggle("light-mode");
+
+        if (document.body.classList.contains("light-mode")) {
+
+            themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+
+        } else {
+
+            themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+
+        }
+
+    });
+
+}
+
+// ================= NAVBAR SCROLL EFFECT =================
+
+const navbar = document.querySelector("nav");
+
+window.addEventListener("scroll", () => {
+
+    if(window.scrollY > 80){
+
+        navbar.classList.add("scrolled");
+
     }else{
-        themeBtn.innerHTML='<i class="fas fa-moon"></i>';
+
+        navbar.classList.remove("scrolled");
+
     }
+
+});
+// Navbar background on scroll
+
+window.addEventListener("scroll",()=>{
+
+const nav=document.querySelector(".custom-navbar");
+
+if(window.scrollY>60){
+
+nav.classList.add("scrolled");
+
+}else{
+
+nav.classList.remove("scrolled");
+
+}
+
+});
+
+// Active Navigation
+
+const sections=document.querySelectorAll("section");
+const navLinks=document.querySelectorAll(".nav-link");
+
+window.addEventListener("scroll",()=>{
+
+let current="";
+
+sections.forEach(section=>{
+
+const top=section.offsetTop-120;
+
+if(scrollY>=top){
+
+current=section.getAttribute("id");
+
+}
+
+});
+
+navLinks.forEach(link=>{
+
+link.classList.remove("active");
+
+if(link.getAttribute("href")==="#"+current){
+
+link.classList.add("active");
+
+}
+
+});
 
 });
