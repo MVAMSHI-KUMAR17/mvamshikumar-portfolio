@@ -1,3 +1,4 @@
+console.log("Script Loaded");
 // ================= AOS =================
 AOS.init();
 
