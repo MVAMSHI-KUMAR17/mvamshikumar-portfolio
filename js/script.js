@@ -1,19 +1,23 @@
 console.log("Script Loaded");
 // ================= AOS =================
-AOS.init();
+if (typeof AOS !== "undefined") {
+    AOS.init();
+}
 
 // ================= Typed.js =================
-new Typed("#typing", {
-    strings: [
-        "Electrical Engineer",
-        "Research Author",
-        "Power System Enthusiast",
-        "Renewable Energy Explorer"
-    ],
-    typeSpeed: 60,
-    backSpeed: 40,
-    loop: true
-});
+if (typeof Typed !== "undefined") {
+    new Typed("#typing", {
+        strings: [
+            "Electrical Engineer",
+            "Research Author",
+            "Power System Enthusiast",
+            "Renewable Energy Explorer"
+        ],
+        typeSpeed: 60,
+        backSpeed: 40,
+        loop: true
+    });
+}
 
 // ================= Counter =================
 const counters = document.querySelectorAll(".counter");
@@ -109,21 +113,25 @@ if (themeBtn) {
 
 // ================= NAVBAR SCROLL EFFECT =================
 
-const navbar = document.querySelector("nav");
+const navbar = document.querySelector(".custom-navbar");
 
-window.addEventListener("scroll", () => {
+if(navbar){
 
-    if(window.scrollY > 80){
+window.addEventListener("scroll",()=>{
 
-        navbar.classList.add("scrolled");
+if(window.scrollY>80){
 
-    }else{
+navbar.classList.add("scrolled");
 
-        navbar.classList.remove("scrolled");
+}else{
 
-    }
+navbar.classList.remove("scrolled");
+
+}
 
 });
+
+}
 // Navbar background on scroll
 
 window.addEventListener("scroll",()=>{
@@ -176,21 +184,36 @@ link.classList.add("active");
 });
 
 });
-const themeBtn = document.getElementById("themeToggle");
+// Save Theme
 
-themeBtn.addEventListener("click", () => {
+if (themeBtn) {
 
-    document.body.classList.toggle("light-mode");
+    if(localStorage.getItem("theme")==="light"){
 
-    localStorage.setItem(
-        "theme",
-        document.body.classList.contains("light-mode")
-        ? "light"
-        : "dark"
-    );
+        document.body.classList.add("light-mode");
 
-});
+        themeBtn.innerHTML='<i class="fas fa-sun"></i>';
 
-if(localStorage.getItem("theme")==="light"){
-    document.body.classList.add("light-mode");
+    }
+
+    themeBtn.addEventListener("click",()=>{
+
+        document.body.classList.toggle("light-mode");
+
+        if(document.body.classList.contains("light-mode")){
+
+            localStorage.setItem("theme","light");
+
+            themeBtn.innerHTML='<i class="fas fa-sun"></i>';
+
+        }else{
+
+            localStorage.setItem("theme","dark");
+
+            themeBtn.innerHTML='<i class="fas fa-moon"></i>';
+
+        }
+
+    });
+
 }
