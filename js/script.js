@@ -1,219 +1,196 @@
-console.log("Script Loaded");
-// ================= AOS =================
-if (typeof AOS !== "undefined") {
-    AOS.init();
-}
+/**
+ * Portfolio Application
+ * Modular JavaScript architecture
+ */
+const PortfolioApp = (() => {
 
-// ================= Typed.js =================
-if (typeof Typed !== "undefined") {
-    new Typed("#typing", {
-        strings: [
-            "Electrical Engineer",
-            "Research Author",
-            "Power System Enthusiast",
-            "Renewable Energy Explorer"
-        ],
-        typeSpeed: 60,
-        backSpeed: 40,
-        loop: true
-    });
-}
-
-// ================= Counter =================
-const counters = document.querySelectorAll(".counter");
-
-counters.forEach(counter => {
-
-    counter.innerText = "0";
-
-    const updateCounter = () => {
-
-        const target = +counter.getAttribute("data-target");
-        const current = +counter.innerText;
-        const increment = target / 100;
-
-        if (current < target) {
-            counter.innerText = Math.ceil(current + increment);
-            setTimeout(updateCounter, 20);
-        } else {
-            counter.innerText = target;
+    /* ================= AOS Animation ================= */
+    const initAOS = () => {
+        if (typeof AOS !== "undefined") {
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 80
+            });
         }
-
     };
 
-    updateCounter();
-
-});
-
-// ================= Back To Top =================
-const topBtn = document.getElementById("topBtn");
-
-if (topBtn) {
-
-    window.addEventListener("scroll", () => {
-
-        if (window.scrollY > 300) {
-            topBtn.style.display = "block";
-        } else {
-            topBtn.style.display = "none";
+    /* ================= Typed.js ================= */
+    const initTyped = () => {
+        if (typeof Typed !== "undefined") {
+            new Typed("#typing", {
+                strings: [
+                    "Electrical Engineer",
+                    "Research Author",
+                    "Power System Enthusiast",
+                    "Renewable Energy Explorer"
+                ],
+                typeSpeed: 60,
+                backSpeed: 40,
+                loop: true
+            });
         }
+    };
 
-    });
+    /* ================= Counter Animation ================= */
+    const initCounters = () => {
+        const counters = document.querySelectorAll(".counter");
+        if (!counters.length) return;
 
-    topBtn.addEventListener("click", () => {
+        const animateCounter = (counter) => {
+            const target = +counter.getAttribute("data-target");
+            const duration = 1500;
+            const startTime = performance.now();
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
+            const update = (currentTime) => {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                counter.innerText = Math.ceil(progress * target);
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+
+            requestAnimationFrame(update);
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => {
+            counter.innerText = "0";
+            observer.observe(counter);
+        });
+    };
+
+    /* ================= Back To Top ================= */
+    const initBackToTop = () => {
+        const topBtn = document.getElementById("topBtn");
+        if (!topBtn) return;
+
+        window.addEventListener("scroll", () => {
+            topBtn.style.display = window.scrollY > 300 ? "block" : "none";
         });
 
-    });
+        topBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    };
 
-}
+    /* ================= Page Loader ================= */
+    const initLoader = () => {
+        window.addEventListener("load", () => {
+            const loader = document.getElementById("loader");
+            if (!loader) return;
 
-// ================= Loader =================
-window.addEventListener("load", () => {
+            loader.style.opacity = "0";
+            setTimeout(() => {
+                loader.style.display = "none";
+            }, 800);
+        });
+    };
 
-    const loader = document.getElementById("loader");
+    /* ================= Theme Toggle ================= */
+    const initTheme = () => {
+        const themeBtn = document.getElementById("themeToggle");
+        if (!themeBtn) return;
 
-    if (loader) {
+        const applyTheme = (isLight) => {
+            document.body.classList.toggle("light-mode", isLight);
+            themeBtn.innerHTML = isLight
+                ? '<i class="fas fa-sun"></i>'
+                : '<i class="fas fa-moon"></i>';
+            localStorage.setItem("theme", isLight ? "light" : "dark");
+        };
 
-        loader.style.opacity = "0";
-
-        setTimeout(() => {
-            loader.style.display = "none";
-        }, 800);
-
-    }
-
-});
-
-// ================= Theme Toggle =================
-const themeBtn = document.getElementById("themeToggle");
-
-if (themeBtn) {
-
-    themeBtn.addEventListener("click", () => {
-
-        document.body.classList.toggle("light-mode");
-
-        if (document.body.classList.contains("light-mode")) {
-
-            themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
-
-        } else {
-
-            themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
-
+        if (localStorage.getItem("theme") === "light") {
+            applyTheme(true);
         }
 
-    });
+        themeBtn.addEventListener("click", () => {
+            applyTheme(!document.body.classList.contains("light-mode"));
+        });
+    };
 
-}
+    /* ================= Navbar Scroll Effect ================= */
+    const initNavbar = () => {
+        const navbar = document.querySelector(".custom-navbar");
+        if (!navbar) return;
 
-// ================= NAVBAR SCROLL EFFECT =================
+        window.addEventListener("scroll", () => {
+            navbar.classList.toggle("scrolled", window.scrollY > 80);
+        });
+    };
 
-const navbar = document.querySelector(".custom-navbar");
+    /* ================= Active Navigation Links ================= */
+    const initActiveNav = () => {
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll(".nav-link");
+        if (!sections.length || !navLinks.length) return;
 
-if(navbar){
+        const updateActiveLink = () => {
+            let current = "";
 
-window.addEventListener("scroll",()=>{
+            sections.forEach(section => {
+                const top = section.offsetTop - 120;
+                if (window.scrollY >= top) {
+                    current = section.getAttribute("id");
+                }
+            });
 
-if(window.scrollY>80){
+            navLinks.forEach(link => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === "#" + current) {
+                    link.classList.add("active");
+                }
+            });
+        };
 
-navbar.classList.add("scrolled");
+        window.addEventListener("scroll", updateActiveLink);
+        updateActiveLink();
+    };
 
-}else{
+    /* ================= Mobile Nav Close ================= */
+    const initMobileNav = () => {
+        const navLinks = document.querySelectorAll(".nav-link");
+        const navbarCollapse = document.getElementById("navbarNav");
 
-navbar.classList.remove("scrolled");
+        if (!navLinks.length || !navbarCollapse) return;
 
-}
+        navLinks.forEach(link => {
+            link.addEventListener("click", () => {
+                if (window.innerWidth < 992 && navbarCollapse.classList.contains("show")) {
+                    const toggler = document.querySelector(".navbar-toggler");
+                    if (toggler) toggler.click();
+                }
+            });
+        });
+    };
 
-});
+    /* ================= Initialize All Modules ================= */
+    const init = () => {
+        initAOS();
+        initTyped();
+        initCounters();
+        initBackToTop();
+        initLoader();
+        initTheme();
+        initNavbar();
+        initActiveNav();
+        initMobileNav();
+    };
 
-}
-// Navbar background on scroll
+    return { init };
 
-window.addEventListener("scroll",()=>{
+})();
 
-const nav=document.querySelector(".custom-navbar");
-
-if(window.scrollY>60){
-
-nav.classList.add("scrolled");
-
-}else{
-
-nav.classList.remove("scrolled");
-
-}
-
-});
-
-// Active Navigation
-
-const sections=document.querySelectorAll("section");
-const navLinks=document.querySelectorAll(".nav-link");
-
-window.addEventListener("scroll",()=>{
-
-let current="";
-
-sections.forEach(section=>{
-
-const top=section.offsetTop-120;
-
-if(scrollY>=top){
-
-current=section.getAttribute("id");
-
-}
-
-});
-
-navLinks.forEach(link=>{
-
-link.classList.remove("active");
-
-if(link.getAttribute("href")==="#"+current){
-
-link.classList.add("active");
-
-}
-
-});
-
-});
-// Save Theme
-
-if (themeBtn) {
-
-    if(localStorage.getItem("theme")==="light"){
-
-        document.body.classList.add("light-mode");
-
-        themeBtn.innerHTML='<i class="fas fa-sun"></i>';
-
-    }
-
-    themeBtn.addEventListener("click",()=>{
-
-        document.body.classList.toggle("light-mode");
-
-        if(document.body.classList.contains("light-mode")){
-
-            localStorage.setItem("theme","light");
-
-            themeBtn.innerHTML='<i class="fas fa-sun"></i>';
-
-        }else{
-
-            localStorage.setItem("theme","dark");
-
-            themeBtn.innerHTML='<i class="fas fa-moon"></i>';
-
-        }
-
-    });
-
-}
+document.addEventListener("DOMContentLoaded", PortfolioApp.init);

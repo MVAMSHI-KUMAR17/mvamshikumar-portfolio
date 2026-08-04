@@ -1,0 +1,90 @@
+/* ==========================
+   LIGHT / DARK THEME
+========================== */
+body.light-mode {
+    background: #f5f7fb;
+    color: #111827;
+}
+
+body.light-mode .custom-navbar {
+    background: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+body.light-mode .navbar-brand,
+body.light-mode .nav-link {
+    color: #111827 !important;
+}
+
+body.light-mode .navbar-toggler-icon {
+    filter: none;
+}
+
+body.light-mode .hero {
+    background: linear-gradient(135deg, #e0e7ff, #dbeafe, #bfdbfe);
+}
+
+body.light-mode .hero-content h1 {
+    background: linear-gradient(90deg, #111827, var(--color-primary), var(--color-primary-dark));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+body.light-mode .hero-content h3,
+body.light-mode .hero h3 {
+    color: var(--color-primary);
+}
+
+body.light-mode .hero-description {
+    color: #374151;
+}
+
+body.light-mode .hero-content h5 {
+    color: var(--color-primary);
+}
+
+body.light-mode .social-icons a {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--color-primary);
+}
+
+body.light-mode .social-icons a:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+body.light-mode .counter-section,
+body.light-mode .stats,
+body.light-mode .github-section {
+    background: #1e293b;
+}
+
+body.light-mode .project-card,
+body.light-mode .research-card,
+body.light-mode .certificate-card,
+body.light-mode .about-content,
+body.light-mode .github-card,
+body.light-mode .stat-box,
+body.light-mode .edu-card,
+body.light-mode .award-card,
+body.light-mode .contact-box,
+body.light-mode .contact-form,
+body.light-mode .timeline-content {
+    background: var(--color-white);
+    color: #111827;
+}
+
+body.light-mode .footer {
+    background: var(--color-bg-darker);
+}
+
+body.light-mode #themeToggle {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+body.light-mode .navbar-collapse {
+    background: var(--color-white);
+}
