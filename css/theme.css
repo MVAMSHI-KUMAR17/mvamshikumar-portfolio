@@ -88,3 +88,27 @@ body.light-mode #themeToggle {
 body.light-mode .navbar-collapse {
     background: var(--color-white);
 }
+
+/* ==========================
+   GALLERY LIGHT MODE FIX
+========================== */
+
+body.light-mode #gallery {
+    background: #f8fafc;
+}
+
+body.light-mode #gallery .section-title h2 {
+    color: #111827 !important;
+}
+
+body.light-mode #gallery .section-title p {
+    color: #4b5563 !important;
+}
+
+body.light-mode #gallery .gallery-overlay h5 {
+    color: #ffffff !important;
+}
+
+body.light-mode #gallery .btn {
+    color: #ffffff;
+}

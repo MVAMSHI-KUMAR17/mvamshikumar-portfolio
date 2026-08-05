@@ -177,20 +177,101 @@ const PortfolioApp = (() => {
     };
 
     /* ================= Initialize All Modules ================= */
-    const init = () => {
-        initAOS();
-        initTyped();
-        initCounters();
-        initBackToTop();
-        initLoader();
-        initTheme();
-        initNavbar();
-        initActiveNav();
-        initMobileNav();
-    };
+   const init = () => {
+    initAOS();
+    initTyped();
+    initCounters();
+    initBackToTop();
+    initLoader();
+    initTheme();
+    initNavbar();
+    initActiveNav();
+    initMobileNav();
+    initGalleryLightbox();
+};
 
     return { init };
 
 })();
 
+
+/* ================= LIGHTBOX ================= */
+const initGalleryLightbox = () => {
+
+    const galleryImages = document.querySelectorAll("#galleryImages img");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const caption = document.querySelector(".lightbox-caption");
+    const closeBtn = document.querySelector(".close-lightbox");
+    const nextBtn = document.querySelector(".lightbox-next");
+    const prevBtn = document.querySelector(".lightbox-prev");
+
+    if (
+        !galleryImages.length ||
+        !lightbox ||
+        !lightboxImg ||
+        !caption ||
+        !closeBtn ||
+        !nextBtn ||
+        !prevBtn
+    ) {
+        return;
+    }
+
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+        currentIndex = index;
+        lightbox.classList.add("show");
+        lightboxImg.src = galleryImages[index].src;
+        caption.innerHTML = galleryImages[index].alt;
+        document.body.style.overflow = "hidden";
+    }
+
+    // Open gallery when button is clicked
+const openGalleryBtn = document.getElementById("openGallery");
+
+if (openGalleryBtn) {
+    openGalleryBtn.addEventListener("click", () => {
+        openLightbox(0); // Opens the first image
+    });
+}
+
+    galleryImages.forEach((img, index) => {
+        img.addEventListener("click", () => openLightbox(index));
+    });
+
+    function closeLightbox() {
+        lightbox.classList.remove("show");
+        document.body.style.overflow = "auto";
+    }
+
+    closeBtn.onclick = closeLightbox;
+
+    lightbox.onclick = (e) => {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    };
+
+    nextBtn.onclick = () => {
+        currentIndex = (currentIndex + 1) % galleryImages.length;
+        openLightbox(currentIndex);
+    };
+
+    prevBtn.onclick = () => {
+        currentIndex =
+            (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+        openLightbox(currentIndex);
+    };
+
+    document.addEventListener("keydown", (e) => {
+        if (!lightbox.classList.contains("show")) return;
+
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowRight") nextBtn.click();
+        if (e.key === "ArrowLeft") prevBtn.click();
+    });
+
+};
 document.addEventListener("DOMContentLoaded", PortfolioApp.init);
