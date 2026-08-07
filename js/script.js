@@ -22,8 +22,10 @@ const PortfolioApp = (() => {
                 strings: [
                     "Electrical Engineer",
                     "Research Author",
-                    "Power System Enthusiast",
-                    "Renewable Energy Explorer"
+                    "AI Enthusiast",
+                    "Renewable Energy Explorer" ,
+                    "Industrial Automation Enthusiast" ,
+                    "Innovation & Project Developer"
                 ],
                 typeSpeed: 60,
                 backSpeed: 40,
