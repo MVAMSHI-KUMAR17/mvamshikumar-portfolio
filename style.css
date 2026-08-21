@@ -1014,17 +1014,25 @@ canvas {
         display: block; 
     }
     .logo {
-        font-size: 1rem;
+        display: none;
     }
     .navbar .btn-primary {
-        font-size: 0.8rem;
-        padding: 0.5rem 1rem;
-        width: auto;
+        width: 38px !important;
+        height: 38px !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
+    .navbar .btn-primary .btn-text,
     .navbar .btn-primary .arrow-icon {
-        width: 1.5rem;
-        height: 1.5rem;
-        font-size: 0.75rem;
+        display: none !important;
+    }
+    .navbar .btn-primary .contact-icon-mobile {
+        display: block !important;
+        font-size: 1.1rem;
+        margin: 0;
     }
     .nav-links { 
         position: absolute;
