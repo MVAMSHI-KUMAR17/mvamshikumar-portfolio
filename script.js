@@ -229,6 +229,42 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    // ----------------------------------------------------
+    // Mobile Menu Toggle
+    // ----------------------------------------------------
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinksContainer = document.querySelector('.nav-links');
+    const navLinksArray = document.querySelectorAll('.nav-links a');
+
+    if (mobileMenuBtn && navLinksContainer) {
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinksContainer.classList.toggle('active');
+            
+            const icon = mobileMenuBtn.querySelector('i');
+            if (icon) {
+                if (navLinksContainer.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        });
+
+        // Close menu when a link is clicked
+        navLinksArray.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinksContainer.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+    }
 });
 
 // Scroll to Top Button Click Handler
