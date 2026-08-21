@@ -76,14 +76,6 @@ function renderLoop() {
         const img = images[drawIndex];
         if (img && img.complete) {
             context.drawImage(img, 0, 0);
-        } else {
-            // Fallback: if not preloaded yet
-            const tempImg = new Image();
-            tempImg.src = currentFrame(drawIndex + 1);
-            tempImg.onload = () => {
-                context.drawImage(tempImg, 0, 0);
-                images[drawIndex] = tempImg;
-            };
         }
     }
     
