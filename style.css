@@ -1014,8 +1014,7 @@ canvas {
         display: block; 
     }
     .logo {
-        display: block;
-        font-size: 1.1rem;
+        display: none !important;
     }
     .navbar .btn-primary {
         width: 38px !important;
