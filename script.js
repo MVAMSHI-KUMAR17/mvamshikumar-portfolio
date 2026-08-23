@@ -1,11 +1,11 @@
 const canvas = document.getElementById('scroll-animation');
 const context = canvas.getContext('2d');
 
-const frameCount = 599;
+const frameCount = 600;
 const framesFolder = 'frames';
 
 const currentFrame = index => (
-    `${framesFolder}/frame_${index.toString().padStart(6, '0')}.jpg`
+    `${framesFolder}/frame_${index.toString().padStart(6, '0')}.jpg?v=3`
 );
 
 // We store Image objects here
@@ -24,13 +24,21 @@ firstImage.onload = () => {
 };
 images[0] = firstImage;
 
-// Preload remaining images
+// Preload remaining images progressively to prevent freezing
 const preloadImages = () => {
-    for (let i = 2; i <= frameCount; i++) {
-        const img = new Image();
-        img.src = currentFrame(i);
-        images[i - 1] = img;
+    let i = 2;
+    function loadNextBatch() {
+        // Load in batches of 10 to balance speed and UI responsiveness
+        for (let b = 0; b < 10 && i <= frameCount; b++, i++) {
+            const img = new Image();
+            img.src = currentFrame(i);
+            images[i - 1] = img;
+        }
+        if (i <= frameCount) {
+            setTimeout(loadNextBatch, 10);
+        }
     }
+    loadNextBatch();
 };
 
 // Delay preloading slightly to prioritize the first frame and page rendering
@@ -39,30 +47,40 @@ setTimeout(preloadImages, 100);
 let targetFrameIndex = 0;
 let currentFrameIndex = 0;
 
-window.addEventListener('scroll', () => {
-    // Calculate the maximum scrollable distance
-    const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    
-    // Determine the scroll fraction (0 to 1)
-    const scrollFraction = Math.max(0, Math.min(1, scrollTop / maxScrollTop));
-    
-    // Map the scroll fraction to a target frame index
-    targetFrameIndex = Math.min(
-        frameCount - 1,
-        Math.floor(scrollFraction * frameCount)
-    );
-    
-    // Scroll to Top Button visibility
-    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-    if (scrollToTopBtn) {
-        if (scrollFraction > 0.5) {
-            scrollToTopBtn.classList.add('show');
-        } else {
-            scrollToTopBtn.classList.remove('show');
-        }
-    }
+let maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
+window.addEventListener('resize', () => {
+    maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
 });
+
+let isScrolling = false;
+window.addEventListener('scroll', () => {
+    if (!isScrolling) {
+        window.requestAnimationFrame(() => {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            
+            // Determine the scroll fraction (0 to 1)
+            const scrollFraction = Math.max(0, Math.min(1, scrollTop / maxScrollTop));
+            
+            // Map the scroll fraction to a target frame index
+            targetFrameIndex = Math.min(
+                frameCount - 1,
+                Math.floor(scrollFraction * frameCount)
+            );
+            
+            // Scroll to Top Button visibility
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            if (scrollToTopBtn) {
+                if (scrollFraction > 0.5) {
+                    scrollToTopBtn.classList.add('show');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                }
+            }
+            isScrolling = false;
+        });
+        isScrolling = true;
+    }
+}, { passive: true });
 
 // Continuous loop for smooth interpolation
 function renderLoop() {
@@ -269,4 +287,23 @@ if (scrollToTopBtn) {
         });
     });
 }
+
+// ----------------------------------------------------
+// Preloader Logic
+// ----------------------------------------------------
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        // Enforce a minimum display time of 2.5 seconds for the preloader video
+        setTimeout(() => {
+            preloader.classList.add('hidden');
+            // Optionally pause video to save resources
+            setTimeout(() => {
+                const vid = document.getElementById('preloader-video');
+                if (vid) vid.pause();
+                preloader.style.display = 'none';
+            }, 800);
+        }, 2500);
+    }
+});
 

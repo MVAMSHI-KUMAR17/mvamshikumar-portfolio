@@ -53,9 +53,20 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="stylesheet" href="style.css?v=5">
+    <link rel="stylesheet" href="style.css?v=12">
 </head>
 <body>
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <video autoplay muted loop playsinline id="preloader-video">
+            <source src="assets/preloader.mp4" type="video/mp4">
+        </video>
+        <div class="preloader-content">
+            <div class="spinner"></div>
+            <p style="margin-top: 15px; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem;">Loading Experience</p>
+        </div>
+    </div>
+
     <!-- Background Canvas Animation -->
     <div class="animation-container">
         <canvas id="scroll-animation"></canvas>
@@ -346,46 +357,19 @@
                         <img src="gallery/1000070379-01.jpeg" alt="Gallery Image 1">
                     </div>
                     <div class="gallery-card fade-up delay-1">
-                        <img src="gallery/20260214_154454(1).jpg.jpeg" alt="Gallery Image 2">
+                        <img src="gallery/20260808_123243(0).jpg.jpeg" alt="Gallery Image 2">
                     </div>
                     <div class="gallery-card fade-up delay-2">
-                        <img src="gallery/20260808_123243(0).jpg.jpeg" alt="Gallery Image 3">
+                        <img src="gallery/55100411306_f6a451ee64_o.jpg.jpeg" alt="Gallery Image 3">
                     </div>
                     <div class="gallery-card fade-up">
-                        <img src="gallery/42273.jpg.jpeg" alt="Gallery Image 4">
+                        <img src="gallery/IMG-20250703-WA0002.jpg.jpeg" alt="Gallery Image 4">
                     </div>
                     <div class="gallery-card fade-up delay-1">
-                        <img src="gallery/53741 (1)~2.jpg.jpeg" alt="Gallery Image 5">
+                        <img src="gallery/IMG-20251126-WA0001.jpg.jpeg" alt="Gallery Image 5">
                     </div>
                     <div class="gallery-card fade-up delay-2">
-                        <img src="gallery/55100411306_f6a451ee64_o.jpg.jpeg" alt="Gallery Image 6">
-                    </div>
-                    <div class="gallery-card fade-up">
-                        <img src="gallery/55250682240_e8e49e0b28_o.jpg.jpeg" alt="Gallery Image 7">
-                    </div>
-                    <div class="gallery-card fade-up delay-1">
-                        <img src="gallery/64727 (1)~2.jpeg" alt="Gallery Image 8">
-                    </div>
-                    <div class="gallery-card fade-up delay-2">
-                        <img src="gallery/78091 (3).jpeg" alt="Gallery Image 9">
-                    </div>
-                    <div class="gallery-card fade-up">
-                        <img src="gallery/IMG-20250703-WA0002.jpg.jpeg" alt="Gallery Image 10">
-                    </div>
-                    <div class="gallery-card fade-up delay-1">
-                        <img src="gallery/IMG-20251126-WA0001.jpg.jpeg" alt="Gallery Image 11">
-                    </div>
-                    <div class="gallery-card fade-up delay-2">
-                        <img src="gallery/Peachy_20251206_234658794(1).jpg.jpeg" alt="Gallery Image 12">
-                    </div>
-                    <div class="gallery-card fade-up">
-                        <img src="gallery/Peachy_20260209_101116621.jpg.jpeg" alt="Gallery Image 13">
-                    </div>
-                    <div class="gallery-card fade-up delay-1">
-                        <img src="gallery/Picsart_25-05-31_11-54-21-266.png" alt="Gallery Image 14">
-                    </div>
-                    <div class="gallery-card fade-up delay-2">
-                        <img src="gallery/Picsart_26-08-04_11-33-39-039.jpg.jpeg" alt="Gallery Image 15">
+                        <img src="gallery/Picsart_25-05-31_11-54-21-266.png" alt="Gallery Image 6">
                     </div>
                     <!-- Old Portfolio Images -->
                     <div class="gallery-card fade-up">
@@ -468,6 +452,6 @@
         <i class="fas fa-arrow-up"></i>
     </button>
     
-    <script src="script.js"></script>
+    <script src="script.js?v=4"></script>
 </body>
 </html>
