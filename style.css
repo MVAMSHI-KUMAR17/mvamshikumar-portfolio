@@ -1079,7 +1079,7 @@ canvas {
         display: block; 
     }
     .logo {
-        display: block !important;
+        display: none !important;
         font-size: 1.1rem;
     }
     .navbar .btn-primary {
