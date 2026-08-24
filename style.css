@@ -238,7 +238,7 @@ canvas {
     align-content: flex-end;
     margin-top: 4rem;
     gap: 2rem;
-    padding-bottom: 8rem;
+    padding-bottom: 4rem;
 }
 
 .hero-text-left {
@@ -264,7 +264,6 @@ canvas {
 .hero-text-right {
     flex: 1 1 300px;
     max-width: 100%;
-    margin-bottom: -5rem;
 }
 
 .sub-title {
