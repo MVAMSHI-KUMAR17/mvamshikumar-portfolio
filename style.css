@@ -46,8 +46,7 @@ html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    /* Ensure there's enough room to scroll through frames, but let content dictate height if it's larger */
-    min-height: 700vh;
+    /* Let content dictate height */
     height: auto;
     background-color: var(--bg-color);
     font-family: 'Inter', sans-serif;
@@ -107,7 +106,6 @@ canvas {
     width: 100%;
     display: flex;
     flex-direction: column;
-    min-height: 700vh; /* Match the body's min-height to ensure footer is at the absolute bottom */
 }
 
 /* ==========================================================================
@@ -137,12 +135,14 @@ canvas {
 /* Navbar */
 .navbar {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     padding-top: 1rem;
     position: relative;
     z-index: 100;
+    gap: 1rem;
 }
 
 .mobile-menu-btn {
@@ -160,17 +160,21 @@ canvas {
     font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: -0.5px;
+    white-space: nowrap;
 }
 
 .nav-links {
     display: flex;
-    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
     font-size: 0.9rem;
     font-weight: 500;
+    flex: 1;
 }
 
 .nav-links a {
-    padding: 0.5rem 1.25rem;
+    padding: 0.5rem 1rem;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50px;
@@ -178,6 +182,7 @@ canvas {
     -webkit-backdrop-filter: blur(10px);
     transition: all 0.3s ease;
     color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
 }
 
 .nav-links a:hover {
@@ -227,13 +232,16 @@ canvas {
 .hero-content {
     flex-grow: 1;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     margin-top: 4rem;
+    gap: 2rem;
 }
 
 .hero-text-left {
-    max-width: 50%;
+    flex: 1 1 300px;
+    max-width: 100%;
 }
 
 .greeting {
@@ -252,7 +260,8 @@ canvas {
 }
 
 .hero-text-right {
-    max-width: 35%;
+    flex: 1 1 300px;
+    max-width: 100%;
     margin-bottom: -5rem;
 }
 
@@ -1104,18 +1113,27 @@ canvas {
     }
     .nav-links { 
         position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(11, 11, 11, 0.95);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
+        top: calc(100% + 1rem);
+        left: 1rem;
+        right: 1rem;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%);
+        backdrop-filter: blur(24px) saturate(160%);
+        -webkit-backdrop-filter: blur(24px) saturate(160%);
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-top: 1px solid rgba(255, 255, 255, 0.5);
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 
+            inset 0 4px 10px rgba(255, 255, 255, 0.2), 
+            inset 0 -4px 10px rgba(0, 0, 0, 0.1),
+            0 25px 45px rgba(0, 0, 0, 0.5),
+            0 10px 20px rgba(0, 0, 0, 0.3);
         flex-direction: column;
         align-items: stretch;
         padding: 1.5rem;
-        gap: 0.5rem;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
+        gap: 0.75rem;
         display: none;
+        z-index: 1000;
     }
     .nav-links.active {
         display: flex;
@@ -1174,7 +1192,7 @@ canvas {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #0b0b0b;
+    background-color: #000000;
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -1187,12 +1205,10 @@ canvas {
     position: absolute;
     top: 50%;
     left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
     transform: translateX(-50%) translateY(-50%);
-    object-fit: cover;
+    object-fit: contain;
     opacity: 0.6;
     z-index: 1;
 }
