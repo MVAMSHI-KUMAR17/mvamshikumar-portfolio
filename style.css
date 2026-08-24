@@ -1063,7 +1063,8 @@ canvas {
     /* Layout adjustments */
     .logo { display: none !important; }
     .hero-content { flex-direction: column; align-items: flex-start; gap: 3rem; margin-top: 2rem; }
-    .hero-text-left, .hero-text-right { max-width: 100%; margin-bottom: 0; }
+    .hero-text-left, .hero-text-right { max-width: 100%; margin-bottom: 0; padding-left: 0; text-align: left; align-items: flex-start; }
+    .hero-buttons { justify-content: flex-start; }
     .hero-section { padding-top: 4rem; }
 
     .about-section { flex-direction: column; gap: 2.5rem; }
@@ -1156,7 +1157,8 @@ canvas {
 
     /* Typography */
     .main-title { font-size: 3rem; line-height: 1.2; letter-spacing: -1px; }
-    .sub-title { font-size: 1.4rem; }
+    .sub-title { font-size: 1.4rem; text-align: center; }
+    .description { text-align: center; }
     .section-title { font-size: 2.2rem; line-height: 1.2; letter-spacing: -1px; }
     .section-title-center { font-size: 2.2rem; margin-bottom: 2rem; line-height: 1.2; letter-spacing: -1px; }
 
