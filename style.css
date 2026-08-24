@@ -234,9 +234,11 @@ canvas {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
+    align-content: flex-end;
     margin-top: 4rem;
     gap: 2rem;
+    padding-bottom: 4rem;
 }
 
 .hero-text-left {
