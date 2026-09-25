@@ -53,18 +53,20 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="stylesheet" href="style.css?v=12">
+    <link rel="stylesheet" href="style_v2.css?v=18">
 </head>
 <body>
     <!-- Preloader -->
     <div id="preloader" class="preloader">
-        <video autoplay muted loop playsinline id="preloader-video">
-            <source src="assets/preloader.mp4" type="video/mp4">
-        </video>
-        <div class="preloader-content">
-            <div class="spinner"></div>
-            <p class="preloader-text">Loading Experience</p>
-        </div>
+        <div id="preloader-fold-text" class="fold-text" style="color: #f7f2e8; font-size: clamp(2rem, 5vw, 4rem); font-weight: 800;"></div>
+        <button id="preloader-skip" class="glow-ring-btn preloader-skip-btn">
+            <span class="glow-ring-blur"></span>
+            <span class="glow-ring-border"></span>
+            <span class="glow-ring-btn-inner">
+                <span class="btn-text" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 15px; letter-spacing: 0.3px; -webkit-font-smoothing: antialiased;">Skip</span>
+                <span class="arrow-icon">↗</span>
+            </span>
+        </button>
     </div>
 
     <!-- Background Canvas Animation -->
@@ -94,11 +96,17 @@
                     <a href="#journey">Journey</a>
                     <a href="#gallery">Gallery</a>
                 </div>
-                <a href="#contact" class="btn-primary nav-contact-btn">
-                    <span class="btn-text">Get in touch</span>
-                    <span class="arrow-icon">→</span>
-                    <i class="fas fa-envelope contact-icon-mobile" style="display: none;"></i>
-                </a>
+                <div class="nav-buttons" style="display: flex; gap: 10px; align-items: center;">
+                    <a href="#contact" class="glow-ring-btn nav-contact-btn">
+                        <span class="glow-ring-blur"></span>
+                        <span class="glow-ring-border"></span>
+                        <span class="glow-ring-btn-inner">
+                            <span class="btn-text">Get in touch</span>
+                            <span class="arrow-icon">↗</span>
+                            <i class="fas fa-envelope contact-icon-mobile" style="display: none;"></i>
+                        </span>
+                    </a>
+                </div>
             </nav>
 
             <div class="hero-content" id="home">
@@ -196,15 +204,7 @@
                         </div>
                     </div>
 
-                    <div class="skills-grid mt-4">
-                        <div class="skill-tag">Electrical Engineering (95%)</div>
-                        <div class="skill-tag">AI (95%)</div>
-                        <div class="skill-tag">Renewable Energy (92%)</div>
-                        <div class="skill-tag">Industrial Automation (88%)</div>
-                        <div class="skill-tag">MATLAB (85%)</div>
-                        <div class="skill-tag">ETAP (80%)</div>
-                        <div class="skill-tag">AutoCAD Electrical (75%)</div>
-                    </div>
+
                 </div>
             </section>
 
@@ -214,7 +214,7 @@
                 <div class="project-grid">
                     
                     <div class="project-glass-card fade-up">
-                        <img src="assets/solar.jpg" alt="Solar Project" class="project-img">
+                        <img loading="lazy" src="assets/solar.jpg" alt="Solar Project" class="project-img">
                         <div class="project-content">
                             <span class="badge bg-warning text-dark mb-2">🏆 Award Winning</span>
                             <h3>Relay Based Solar Powered Street Light</h3>
@@ -224,7 +224,7 @@
                     </div>
 
                     <div class="project-glass-card fade-up delay-1">
-                        <img src="assets/etap.jpg" alt="ETAP" class="project-img">
+                        <img loading="lazy" src="assets/etap.jpg" alt="ETAP" class="project-img">
                         <div class="project-content">
                             <span class="badge bg-success mb-2">📄 Published Research</span>
                             <h3>Power System Analysis using ETAP</h3>
@@ -234,7 +234,7 @@
                     </div>
 
                     <div class="project-glass-card fade-up">
-                        <img src="assets/safety_book.jpg" alt="Safety Book" class="project-img">
+                        <img loading="lazy" src="assets/safety_book.jpg" alt="Safety Book" class="project-img">
                         <div class="project-content">
                             <span class="badge bg-danger mb-2">📘 Technical Book</span>
                             <h3>Electrical Safety Awareness Booklet</h3>
@@ -244,7 +244,7 @@
                     </div>
 
                     <div class="project-glass-card fade-up delay-1">
-                        <img src="assets/substation.jpg" alt="Substation" class="project-img">
+                        <img loading="lazy" src="assets/substation.jpg" alt="Substation" class="project-img">
                         <div class="project-content">
                             <span class="badge bg-info mb-2">💡 Report</span>
                             <h3>33/11 KV Barasat Sub-Station</h3>
@@ -288,14 +288,76 @@
             <!-- Certifications Section -->
             <section id="certifications" class="certifications-section" style="margin-bottom: 8rem;">
                 <h2 class="section-title-center fade-up">Certifications</h2>
-                <div class="awards-grid mt-4" style="display: flex; justify-content: center;">
+                <div class="awards-grid mt-4" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;">
                     
-                    <div class="award-card fade-up glass-card" style="max-width: 500px; width: 100%;">
-                        <i class="fas fa-certificate award-icon"></i>
-                        <h3>Career Essentials in Generative AI</h3>
-                        <h5>Microsoft & LinkedIn Learning</h5>
-                        <p>Completed professional learning in Generative AI covering Artificial Intelligence, Generative AI fundamentals, responsible AI, and Computer Ethics.</p>
+                    <div class="award-card fade-up glass-card" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <i class="fas fa-certificate award-icon"></i>
+                            <h3>Career Essentials in Generative AI</h3>
+                            <h5>Microsoft & LinkedIn Learning</h5>
+                            <p>Completed professional learning in Generative AI covering Artificial Intelligence, Generative AI fundamentals, responsible AI, and Computer Ethics.</p>
+                        </div>
                         <a href="resume/Generative_AI_Certificate.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                    </div>
+                    
+                    <div class="award-card fade-up glass-card delay-1" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <i class="fas fa-certificate award-icon"></i>
+                            <h3>Introduction to Artificial Intelligence</h3>
+                            <h5>LinkedIn Learning</h5>
+                            <p>Learned the basics of artificial intelligence, its history, and its real-world applications across various industries.</p>
+                        </div>
+                        <a href="LinkedIN/CertificateOfCompletion_Introduction to Artificial Intelligence/CertificateOfCompletion_Introduction to Artificial Intelligence.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                    </div>
+
+                    <div class="award-card fade-up glass-card delay-2" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <i class="fas fa-certificate award-icon"></i>
+                            <h3>Ethics in the Age of Generative AI</h3>
+                            <h5>LinkedIn Learning</h5>
+                            <p>Explored ethical challenges, bias mitigation, and considerations when deploying generative AI systems.</p>
+                        </div>
+                        <a href="LinkedIN/Generative ai and ethics/certificate/CertificateOfCompletion_Ethics in the Age of Generative AI.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                    </div>
+
+                    <div class="award-card fade-up glass-card" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <i class="fas fa-certificate award-icon"></i>
+                            <h3>What Is Generative AI</h3>
+                            <h5>Microsoft & LinkedIn Learning</h5>
+                            <p>Foundational knowledge of what Generative AI is, how it works, and its creative potential.</p>
+                        </div>
+                        <a href="LinkedIN/Generative AI certifications and files by microsoft and linkedin/Certifications/CertificateOfCompletion_What Is Generative AI.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                    </div>
+
+                    <div class="award-card fade-up glass-card delay-1" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <i class="fas fa-certificate award-icon"></i>
+                            <h3>Generative AI: The Evolution of Thoughtful Online Search</h3>
+                            <h5>LinkedIn Learning</h5>
+                            <p>Understood how AI is transforming online search paradigms and intelligent content discovery.</p>
+                        </div>
+                        <a href="LinkedIN/generative ai evolution/certifications/CertificateOfCompletion_Generative AI The Evolution of Thoughtful Online Search.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                    </div>
+
+                    <div class="award-card fade-up glass-card delay-2" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <i class="fas fa-certificate award-icon"></i>
+                            <h3>Learning Microsoft 365 Copilot</h3>
+                            <h5>Microsoft & LinkedIn Learning</h5>
+                            <p>Learned how to leverage Microsoft 365 Copilot to enhance productivity and automate daily tasks.</p>
+                        </div>
+                        <a href="LinkedIN/Microsoft 365 Copilot/certificate/CertificateOfCompletion_Learning Microsoft 365 Copilot.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                    </div>
+
+                    <div class="award-card fade-up glass-card" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <i class="fas fa-certificate award-icon"></i>
+                            <h3>Streamlining Your Work with Microsoft Copilot</h3>
+                            <h5>Microsoft & LinkedIn Learning</h5>
+                            <p>Discovered advanced ways to streamline complex workflows and boost efficiency using Microsoft Copilot.</p>
+                        </div>
+                        <a href="LinkedIN/Streamlining Your Work with Microsoft Copilot/certifications/CertificateOfCompletion_Streamlining Your Work with Microsoft Copilot.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
                     </div>
 
                 </div>
@@ -341,57 +403,44 @@
                 </div>
             </section>
 
-            <!-- Gallery Section -->
-            <section id="gallery" class="gallery-section">
-                <div class="gallery-header fade-up">
+            <!-- Gallery Section (Button Triggered Modal) -->
+            <section id="gallery" class="gallery-section fade-up" style="height: auto; padding: 4rem 0;">
+                <div class="gallery-header" style="position: relative; text-align: center; margin-bottom: 2rem; z-index: 10;">
                     <h2 class="section-title-center">Journey & Gallery</h2>
                     <p class="section-subtitle">Projects & Professional Moments</p>
-                </div>
-                <div class="fade-up" style="display: flex; justify-content: center; align-items: center; margin-top: 3rem;">
-                    <button id="open-gallery-btn" class="btn-primary" style="font-size: 1.2rem; padding: 1rem 2.5rem; display: inline-flex; align-items: center; gap: 0.8rem; cursor: pointer;">
+                    <button id="open-gallery-btn" class="btn-primary" style="margin: 1.5rem auto 0 auto; display: inline-flex;">
                         <i class="fas fa-images"></i> Open Gallery
                     </button>
                 </div>
-                <div class="gallery-grid" style="display: none;">
-                    <div class="gallery-card fade-up">
-                        <img src="gallery/1000070379-01.jpeg" alt="Gallery Image 1">
-                    </div>
-                    <div class="gallery-card fade-up delay-1">
-                        <img src="gallery/20260808_123243(0).jpg.jpeg" alt="Gallery Image 2">
-                    </div>
-                    <div class="gallery-card fade-up delay-2">
-                        <img src="gallery/55100411306_f6a451ee64_o.jpg.jpeg" alt="Gallery Image 3">
-                    </div>
-                    <div class="gallery-card fade-up">
-                        <img src="gallery/IMG-20250703-WA0002.jpg.jpeg" alt="Gallery Image 4">
-                    </div>
-                    <div class="gallery-card fade-up delay-1">
-                        <img src="gallery/IMG-20251126-WA0001.jpg.jpeg" alt="Gallery Image 5">
-                    </div>
-                    <div class="gallery-card fade-up delay-2">
-                        <img src="gallery/Picsart_25-05-31_11-54-21-266.png" alt="Gallery Image 6">
-                    </div>
-                    <!-- Old Portfolio Images -->
-                    <div class="gallery-card fade-up">
-                        <img src="images/gallery/gallery1.jpg" alt="IEM Award Poster">
-                    </div>
-                    <div class="gallery-card fade-up delay-1">
-                        <img src="images/gallery/gallery2.jpg" alt="Placement at DAHUA">
-                    </div>
-                    <div class="gallery-card fade-up delay-2">
-                        <img src="images/gallery/gallery3.jpg" alt="IEM Certification">
-                    </div>
-                    <div class="gallery-card fade-up">
-                        <img src="images/gallery/gallery4.jpg" alt="Paper presentation at NIT Durgapur">
-                    </div>
-                    <div class="gallery-card fade-up delay-1">
-                        <img src="images/gallery/gallery5.jpg" alt="Paper presentation Technical Event">
-                    </div>
-                    <div class="gallery-card fade-up delay-2">
-                        <img src="images/gallery/gallery6.jpg" alt="Certification">
+            </section>
+
+            <!-- 3D Fan Deck Gallery Modal -->
+            <div id="gallery-modal" class="gallery-modal">
+                <span id="gallery-modal-close" class="gallery-modal-close">&times;</span>
+                <div class="gallery-fan-stage">
+                    <div class="gallery-fan-container" id="gallery-fan-container">
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/1000070379-01.jpeg" class="gallery-fan-image" alt="Gallery Image 1"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/20260808_123243(0).jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 2"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/55100411306_f6a451ee64_o.jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 3"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/IMG-20250703-WA0002.jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 4"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/IMG-20251126-WA0001.jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 5"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/Picsart_25-05-31_11-54-21-266.png" class="gallery-fan-image" alt="Gallery Image 6"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery1.jpg" class="gallery-fan-image" alt="IEM Award Poster"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery2.jpg" class="gallery-fan-image" alt="Placement at DAHUA"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery3.jpg" class="gallery-fan-image" alt="IEM Certification"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery4.jpg" class="gallery-fan-image" alt="Paper presentation at NIT Durgapur"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery5.jpg" class="gallery-fan-image" alt="Paper presentation Technical Event"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery6.jpg" class="gallery-fan-image" alt="Certification"></div></div>
                     </div>
                 </div>
-            </section>
+                
+                <!-- Gallery Controls -->
+                <div class="gallery-controls">
+                    <button id="gallery-prev" class="gallery-control-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button id="gallery-play-pause" class="gallery-control-btn"><i class="fas fa-pause"></i></button>
+                    <button id="gallery-next" class="gallery-control-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
 
             <!-- Contact Section & Footer -->
             <section id="contact" class="contact-section fade-up">
@@ -439,7 +488,9 @@
         
     </main>
 
-    <!-- Lightbox Modal -->
+
+
+    <!-- Lightbox Modal (for individual fullscreen viewing) -->
     <div id="lightbox" class="lightbox">
         <span class="lightbox-close">&times;</span>
         <span class="lightbox-prev">&#10094;</span>
@@ -452,6 +503,98 @@
         <i class="fas fa-arrow-up"></i>
     </button>
     
-    <script src="script.js?v=4"></script>
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script src="script_v2.js?v=11"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const preloader = document.getElementById('preloader');
+            
+            // Lock scrolling while preloader is active
+            document.body.style.overflow = 'hidden';
+            
+            const sequence = [
+                "Hi", 
+                "नमस्ते", 
+                "নমস্কার", 
+                "नमस्कार", 
+                "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", 
+                "నమస్కారం", 
+                "வணக்கம்", 
+                "ನಮಸ್ಕಾರ", 
+                "നമസ്കാരം", 
+                "ନମସ୍କାର", 
+                "નમસ્તે", 
+                "Welcome", 
+                "To", 
+                "M. Vamshi Kumar", 
+                "Portfolio"
+            ];
+            
+            const preloaderSeq = initFoldTextSequence('preloader-fold-text', sequence, {
+                splitBy: 'word', 
+                hinge: 'top',
+                duration: 0.65,
+                stagger: 0.045,
+                ease: 'power3.out',
+                perspective: 700,
+                creaseShading: 0.55,
+                delayBetween: 0.3
+            }, () => {
+                // When sequence completes, shift/slide out the preloader
+                if (preloader) {
+                    preloader.style.transition = 'transform 1.2s cubic-bezier(0.77, 0, 0.175, 1)';
+                    preloader.style.transform = 'translateY(-100%)';
+                    
+                    // Animate the main website coming up from the bottom
+                    const overlay = document.querySelector('.content-overlay');
+                    const canvasBg = document.querySelector('.animation-container');
+                    
+                    if (overlay && canvasBg && typeof gsap !== 'undefined') {
+                        gsap.fromTo([canvasBg, overlay], 
+                            { 
+                                y: 150, 
+                                opacity: 0 
+                            }, 
+                            { 
+                                y: 0, 
+                                opacity: 1, 
+                                duration: 1.2, 
+                                ease: 'power3.out',
+                                delay: 0.1 // animate right as preloader moves
+                            }
+                        );
+                    }
+                    
+                    // Unlock scrolling once the animation shifts the screen
+                    setTimeout(() => {
+                        document.body.style.overflow = '';
+                        preloader.style.display = 'none';
+                    }, 1200);
+                }
+            });
+
+            // Skip button logic
+            const skipBtn = document.getElementById('preloader-skip');
+            if (skipBtn) {
+                // Show skip button after 2 seconds
+                setTimeout(() => {
+                    skipBtn.classList.add('show');
+                }, 2000);
+
+                // Handle click
+                skipBtn.addEventListener('click', () => {
+                    // Hide the skip button
+                    skipBtn.style.display = 'none';
+                    // Skip the text sequence and trigger onComplete immediately
+                    if (preloaderSeq && preloaderSeq.skip) {
+                        preloaderSeq.skip();
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

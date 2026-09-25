@@ -130,14 +130,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ----------------------------------------------------
-    // Lightbox Logic for Gallery
+    // Lightbox Logic & 3D Circular Slider
     // ----------------------------------------------------
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxClose = document.querySelector('.lightbox-close');
     const lightboxPrev = document.querySelector('.lightbox-prev');
     const lightboxNext = document.querySelector('.lightbox-next');
-    const galleryImages = Array.from(document.querySelectorAll('.gallery-card img'));
+    const galleryImages = Array.from(document.querySelectorAll('.slider-item img'));
     
     let currentImageIndex = 0;
 
@@ -150,57 +150,145 @@ document.addEventListener("DOMContentLoaded", () => {
             currentImageIndex = index;
         }
         
-        // Smooth transition effect
         lightboxImg.style.opacity = 0.5;
         setTimeout(() => {
-            lightboxImg.src = galleryImages[currentImageIndex].src;
+            if(galleryImages[currentImageIndex]) {
+                lightboxImg.src = galleryImages[currentImageIndex].src;
+            }
             lightboxImg.style.opacity = 1;
         }, 150);
     }
-
-    // Open lightbox when a gallery image is clicked
-    galleryImages.forEach((img, index) => {
-        img.addEventListener('click', () => {
-            lightbox.classList.add('active');
-            showImage(index);
-        });
-    });
-
-    // Open lightbox from the Open Gallery button
+    // ----------------------------------------------------
+    // 3D Gallery Modal Logic
+    // ----------------------------------------------------
+    const galleryModal = document.getElementById('gallery-modal');
     const openGalleryBtn = document.getElementById('open-gallery-btn');
-    if (openGalleryBtn) {
+    const galleryModalClose = document.getElementById('gallery-modal-close');
+
+    if (openGalleryBtn && galleryModal) {
         openGalleryBtn.addEventListener('click', () => {
-            if (galleryImages.length > 0) {
-                lightbox.classList.add('active');
-                showImage(0);
+            galleryModal.classList.add('active');
+        });
+    }
+
+    if (galleryModalClose) {
+        galleryModalClose.addEventListener('click', () => {
+            galleryModal.classList.remove('active');
+        });
+    }
+
+    if (galleryModal) {
+        galleryModal.addEventListener('click', (e) => {
+            // Close if clicking outside the slider area
+            if (e.target === galleryModal) {
+                galleryModal.classList.remove('active');
             }
         });
+    }
+
+    // Circular 3D Slider Setup
+    const circularSlider = document.getElementById('circular-slider');
+    if (circularSlider && galleryImages.length > 0) {
+        const sliderItems = circularSlider.querySelectorAll('.slider-item');
+        const itemCount = sliderItems.length;
+        const angle = 360 / itemCount;
+        
+        // Dynamic radius for smooth spacing
+        const radius = Math.max(400, (250 / 2) / Math.tan(Math.PI / itemCount) + 100);
+
+        // Hover-to-spin state
+        let targetVelocity = 0;
+        let currentVelocity = 0;
+        let currentRotation = 0;
+        let animationFrameId;
+
+        sliderItems.forEach((item, index) => {
+            item.style.transform = `rotateY(${index * angle}deg) translateZ(${radius}px)`;
+            
+            const img = item.querySelector('img');
+            if (img) {
+                img.addEventListener('click', (e) => {
+                    lightbox.classList.add('active');
+                    showImage(index);
+                });
+            }
+        });
+
+        const container = document.querySelector('.circular-slider-container');
+        if (container) {
+            const handleMove = (e) => {
+                const x = e.pageX || (e.touches && e.touches[0].pageX);
+                const rect = container.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                
+                // Normalized from -1 (left) to 1 (right)
+                let normalizedX = (x - centerX) / (rect.width / 2);
+                
+                // Deadzone in the center (e.g., -0.3 to 0.3)
+                const deadzone = 0.3;
+                const fixedSpeed = 0.7; // Low, fixed speed
+                
+                if (normalizedX > deadzone) {
+                    targetVelocity = fixedSpeed; // Spin right
+                } else if (normalizedX < -deadzone) {
+                    targetVelocity = -fixedSpeed; // Spin left
+                } else {
+                    targetVelocity = 0; // Stop in the center deadzone
+                }
+            };
+
+            const handleLeave = () => {
+                targetVelocity = 0;
+            };
+
+            container.addEventListener('mousemove', handleMove);
+            container.addEventListener('mouseleave', handleLeave);
+            
+            // Touch support for mobile (swiping feeling can be emulated by holding touch and moving)
+            container.addEventListener('touchmove', handleMove, {passive: true});
+            container.addEventListener('touchend', handleLeave);
+            container.addEventListener('touchcancel', handleLeave);
+            
+            const updateRotation = () => {
+                // Smoothly interpolate currentVelocity to targetVelocity (inertia/easing)
+                currentVelocity += (targetVelocity - currentVelocity) * 0.05;
+                
+                // If velocity is notable, apply it
+                if (Math.abs(currentVelocity) > 0.01 || Math.abs(targetVelocity) > 0) {
+                    currentRotation += currentVelocity; // Add velocity: Mouse Right -> Left items come to center
+                    circularSlider.style.transform = `rotateY(${currentRotation}deg)`;
+                }
+                
+                animationFrameId = requestAnimationFrame(updateRotation);
+            };
+            
+            // Start the animation loop
+            updateRotation();
+        }
     }
 
     // Navigation buttons
     if (lightboxPrev) {
         lightboxPrev.addEventListener('click', (e) => {
-            e.stopPropagation(); // prevent closing lightbox
+            e.stopPropagation();
             showImage(currentImageIndex - 1);
         });
     }
 
     if (lightboxNext) {
         lightboxNext.addEventListener('click', (e) => {
-            e.stopPropagation(); // prevent closing lightbox
+            e.stopPropagation();
             showImage(currentImageIndex + 1);
         });
     }
 
-    // Close lightbox on 'X' click
-    if(lightboxClose) {
+    if (lightboxClose) {
         lightboxClose.addEventListener('click', () => {
             lightbox.classList.remove('active');
         });
     }
 
-    // Close lightbox on clicking outside the image or buttons
-    if(lightbox) {
+    if (lightbox) {
         lightbox.addEventListener('click', (e) => {
             if (e.target !== lightboxImg && e.target !== lightboxPrev && e.target !== lightboxNext) {
                 lightbox.classList.remove('active');
@@ -208,13 +296,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Close lightbox on escape key
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-            lightbox.classList.remove('active');
-        } else if (e.key === 'ArrowRight' && lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') {
+            if (lightbox && lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+            }
+            if (galleryModal && galleryModal.classList.contains('active')) {
+                galleryModal.classList.remove('active');
+            }
+        } else if (e.key === 'ArrowRight' && lightbox && lightbox.classList.contains('active')) {
             showImage(currentImageIndex + 1);
-        } else if (e.key === 'ArrowLeft' && lightbox.classList.contains('active')) {
+        } else if (e.key === 'ArrowLeft' && lightbox && lightbox.classList.contains('active')) {
             showImage(currentImageIndex - 1);
         }
     });
