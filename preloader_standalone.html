@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Preloader</title>
+    
+    <!-- GSAP is required for the animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        /* Base Reset */
+        body, html { margin: 0; padding: 0; background-color: #0b0b0b; font-family: 'Inter', sans-serif; color: white; }
+        
+        /* Preloader Styles */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000000;
+            background-image: 
+                radial-gradient(150% 50% at top center, rgba(255, 50, 50, 1) 0%, rgba(153, 0, 0, 0.8) 25%, rgba(100, 0, 0, 0.4) 50%, transparent 80%),
+                linear-gradient(to top, #000000 0%, #000000 20%, #200000 60%, #400000 100%);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            /* Slide up transition */
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        /* Optional Noise Texture */
+        .preloader::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 10000;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.15;
+            mix-blend-mode: overlay;
+        }
+
+        /* FoldText Component Styles */
+        .fold-text {
+            display: inline-block;
+            color: #f7f2e8;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 0.95;
+            perspective: 700px;
+            text-align: center;
+        }
+        
+        .fold-text-piece {
+            display: inline-block;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            --fold-crease: 0;
+            position: relative;
+        }
+        
+        .fold-text-piece::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,var(--fold-crease)), transparent);
+            pointer-events: none;
+        }
+        
+        .fold-text-whitespace {
+            display: inline-block;
+            white-space: pre;
+        }
+
+        .skip-btn-wrapper {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            z-index: 10000;
+            display: none;
+        }
+
+        .skip-btn-wrapper.visible {
+            display: block !important;
+            animation: slideUpFade 0.4s ease forwards;
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+        /* Main Content styles (For demo purposes) */
+        .main-content {
+            padding: 5rem;
+            text-align: center;
+            opacity: 0; /* Hidden initially, will fade in after preloader */
+            transform: translateY(100px);
+        }
+            /* Glowing Button Styles */
+        .glow-ring-btn {
+            position: relative;
+            display: inline-flex;
+            border-radius: 50px;
+            padding: 2px;
+            text-decoration: none;
+            z-index: 1;
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .glow-ring-btn:hover { transform: translateY(-2px); }
+        .glow-ring-btn:active { transform: translateY(2px); }
+        .glow-ring-btn-inner {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background-color: rgba(10, 10, 15, 0.9);
+            color: #fff;
+            padding: 0.6rem 1rem 0.6rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        .glow-ring-border {
+            position: absolute;
+            inset: 0;
+            border-radius: 50px;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .glow-ring-border::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 250%; height: 250%;
+            background: conic-gradient(from 0deg, transparent 0%, transparent 70%, #ff6b35 85%, #ffffff 100%);
+            transform: translate(-50%, -50%);
+            animation: rotate-glow 2.5s linear infinite;
+        }
+        .glow-ring-blur {
+            position: absolute;
+            inset: -2px;
+            z-index: -1;
+            overflow: hidden;
+            border-radius: 50px;
+            filter: blur(12px);
+            opacity: 0.8;
+        }
+        .glow-ring-blur::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 250%; height: 250%;
+            background: conic-gradient(from 0deg, transparent 0%, transparent 70%, #ff6b35 85%, #ffffff 100%);
+            transform: translate(-50%, -50%);
+            animation: rotate-glow 2.5s linear infinite;
+        }
+        @keyframes rotate-glow {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        .glow-ring-btn .arrow-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            transition: transform 0.3s ease;
+        }
+        .glow-ring-btn:hover .arrow-icon {
+            transform: translateX(3px) rotate(-45deg);
+        }
+    </style>
+</head>
+<body style="overflow: hidden;"> <!-- Lock scrolling initially -->
+
+    <!-- Preloader Container -->
+    <div id="preloader" class="preloader">
+        <div id="preloader-fold-text" class="fold-text"></div>
+        <div id="skip-preloader-btn" class="skip-btn-wrapper">
+            <button class="glow-ring-btn" onclick="window.location.href='index.html'" style="cursor: pointer; background: transparent; border: none; padding: 0;">
+                <span class="glow-ring-blur"></span>
+                <span class="glow-ring-border"></span>
+                <span class="glow-ring-btn-inner">
+                    <span class="btn-text">Skip</span>
+                    <span class="arrow-icon">↗</span>
+                </span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Example Website Content -->
+    <main class="main-content" id="main-content">
+        <h1>Welcome to the Website</h1>
+        <p>The preloader has finished its animation!</p>
+    </main>
+
+    <!-- Preloader JavaScript Logic -->
+    <script>
+        // ----------------------------------------------------------------
+        // CORE ENGINE: FoldText Sequence Animation
+        // ----------------------------------------------------------------
+        function initFoldTextSequence(elementId, strings, options = {}, onComplete = null) {
+            const root = typeof elementId === 'string' ? document.getElementById(elementId) : elementId;
+            if (!root || !strings || !strings.length) {
+                if (onComplete) onComplete();
+                return;
+            }
+
+            const {
+                splitBy = 'word',
+                hinge = 'top',
+                duration = 0.65,
+                stagger = 0.045,
+                ease = 'power3.out',
+                perspective = 700,
+                creaseShading = 0.55,
+                delayBetween = 0.3
+            } = options;
+
+            const safeCrease = Math.min(Math.max(creaseShading, 0), 1);
+            root.style.perspective = typeof perspective === 'number' ? perspective + 'px' : perspective;
+
+            const hingeConfig = {
+                top: { origin: '50% 0%', rotateX: -90, rotateY: 0 },
+                bottom: { origin: '50% 100%', rotateX: 90, rotateY: 0 },
+                left: { origin: '0% 50%', rotateX: 0, rotateY: 90 },
+                right: { origin: '100% 50%', rotateX: 0, rotateY: -90 }
+            }[hinge] || { origin: '50% 50%', rotateX: 0, rotateY: 0 };
+
+            let currentIndex = 0;
+
+            const playNext = () => {
+                if (currentIndex >= strings.length) return;
+                const text = strings[currentIndex];
+                
+                // Render text
+                root.innerHTML = '';
+                const visual = document.createElement('span');
+                visual.className = 'fold-text-visual';
+                visual.style.display = 'inline-block';
+                visual.style.transformStyle = 'preserve-3d';
+                root.appendChild(visual);
+
+                const renderWhitespace = (str) => {
+                    const span = document.createElement('span');
+                    span.className = 'fold-text-whitespace';
+                    span.textContent = str.replace(/ /g, '\u00A0');
+                    return span;
+                };
+
+                const createSegment = (content, type) => {
+                    const fragment = document.createDocumentFragment();
+                    content.split(/(\s+)/).forEach(part => {
+                        if (!part) return;
+                        if (!/^\s+$/.test(part)) {
+                            const span = document.createElement('span');
+                            span.className = 'fold-text-piece';
+                            span.textContent = part;
+                            fragment.appendChild(span);
+                        } else {
+                            fragment.appendChild(renderWhitespace(part));
+                        }
+                    });
+                    return fragment;
+                };
+
+                // Split words
+                text.split(/(\s+)/).forEach(part => {
+                    if (!part) return;
+                    if (/^\s+$/.test(part)) visual.appendChild(renderWhitespace(part));
+                    else visual.appendChild(createSegment(part, 'word'));
+                });
+
+                const pieces = root.querySelectorAll('.fold-text-piece');
+                if (!pieces.length || typeof gsap === 'undefined') {
+                    currentIndex++;
+                    playNext();
+                    return;
+                }
+
+                const activeDuration = duration;
+                const activeStagger = stagger;
+                
+                const fromVars = {
+                    opacity: 0,
+                    rotateX: hingeConfig.rotateX,
+                    rotateY: hingeConfig.rotateY,
+                    '--fold-crease': safeCrease,
+                    transformOrigin: hingeConfig.origin,
+                    force3D: true
+                };
+                
+                const toVars = {
+                    opacity: 1,
+                    rotateX: 0,
+                    rotateY: 0,
+                    '--fold-crease': 0,
+                    duration: activeDuration,
+                    ease: ease,
+                    stagger: activeStagger,
+                };
+
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        currentIndex++;
+                        playNext();
+                    }
+                });
+
+                // Animate In
+                tl.fromTo(pieces, fromVars, toVars);
+                
+                // If not last word, animate out
+                if (currentIndex < strings.length - 1) {
+                    tl.to(pieces, {
+                        opacity: 0,
+                        rotateX: -hingeConfig.rotateX,
+                        rotateY: -hingeConfig.rotateY,
+                        '--fold-crease': safeCrease,
+                        duration: activeDuration * 0.8,
+                        ease: "power2.in",
+                        stagger: activeStagger * 0.5
+                    }, "+=" + delayBetween);
+                } else {
+                    // Last word, pause a little bit, then call onComplete
+                    tl.to({}, { duration: 0.5, onComplete: () => {
+                        if (onComplete) onComplete();
+                    }});
+                }
+            };
+
+            playNext();
+        }
+
+        // ----------------------------------------------------------------
+        // START PRELOADER ON DOM LOAD
+        // ----------------------------------------------------------------
+        window.addEventListener('DOMContentLoaded', () => {
+            const sequence = [
+                "Hi", 
+                "नमस्ते", 
+                "নমস্কার", 
+                "नमस्कार", 
+                "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", 
+                "నమస్కారం", 
+                "வணக்கம்", 
+                "ನಮಸ್ಕಾರ", 
+                "നമസ്കാരം", 
+                "ନମସ୍କାର", 
+                "નમસ્તે", 
+                "Welcome", 
+                "To", 
+                "M. Vamshi Kumar", 
+                "Portfolio"
+            ];
+            
+            initFoldTextSequence('preloader-fold-text', sequence, {
+                splitBy: 'word', 
+                hinge: 'top',
+                duration: 0.65,
+                stagger: 0.045,
+                ease: 'power3.out',
+                perspective: 700,
+                creaseShading: 0.55,
+                delayBetween: 0.3
+            }, () => {
+                // SEQUENCE COMPLETE CALLBACK!
+                const preloader = document.getElementById('preloader');
+                
+                if (preloader) {
+                    // 1. Slide preloader UP
+                    preloader.style.transform = 'translateY(-100%)';
+                    
+                    // 2. Animate Main Content UP
+                    gsap.to("#main-content", { 
+                        y: '0px', 
+                        opacity: 1, 
+                        duration: 1.2, 
+                        ease: "power3.out", 
+                        delay: 0.2 
+                    });
+
+                    // 3. Remove preloader from DOM and unlock scroll
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                        document.body.style.overflow = '';
+                    }, 1200); // Wait for CSS transition to finish
+                }
+            });
+
+            // Skip Button Logic
+            const skipBtn = document.getElementById('skip-preloader-btn');
+            if (skipBtn) {
+                // Show after 2 seconds
+                setTimeout(() => {
+                    skipBtn.style.display = 'block';
+                    skipBtn.classList.add('visible');
+                }, 2000);
+
+                // Skip preloader on click
+                skipBtn.addEventListener('click', () => {
+                    const preloader = document.getElementById('preloader');
+                    if (preloader) {
+                        preloader.style.transform = 'translateY(-100%)';
+                        
+                        gsap.to("#main-content", { 
+                            y: '0px', 
+                            opacity: 1, 
+                            duration: 1.2, 
+                            ease: "power3.out"
+                        });
+
+                        setTimeout(() => {
+                            preloader.style.display = 'none';
+                            document.body.style.overflow = '';
+                        }, 1200);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+

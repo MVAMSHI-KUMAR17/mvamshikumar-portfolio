@@ -381,78 +381,21 @@ if (scrollToTopBtn) {
 }
 
 // ----------------------------------------------------
-// Preloader Logic (GSAP Fold Text Sequence)
+// Preloader Logic
 // ----------------------------------------------------
-function initFoldTextSequence(containerId, sequence, options, onComplete) {
-    const container = document.getElementById(containerId);
-    let completed = false;
-    
-    const safeComplete = () => {
-        if (!completed) {
-            completed = true;
-            if (onComplete) onComplete();
-        }
-    };
-
-    if (!container) {
-        safeComplete();
-        return { skip: () => {} };
+window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        // Enforce a minimum display time of 2.5 seconds for the preloader video
+        setTimeout(() => {
+            preloader.classList.add('hidden');
+            // Optionally pause video to save resources
+            setTimeout(() => {
+                const vid = document.getElementById('preloader-video');
+                if (vid) vid.pause();
+                preloader.style.display = 'none';
+            }, 800);
+        }, 2500);
     }
-
-    // Set perspective for 3D fold effect
-    gsap.set(container, { perspective: options.perspective || 700 });
-
-    let tl = gsap.timeline({
-        onComplete: safeComplete
-    });
-
-    sequence.forEach((text, index) => {
-        // Display the text
-        tl.call(() => {
-            container.innerHTML = `<div style="display: inline-block; transform-style: preserve-3d; transform-origin: 50% 100%; opacity: 0;" class="fold-word">${text}</div>`;
-            const wordElement = container.querySelector('.fold-word');
-            
-            // Unfold animation
-            gsap.fromTo(wordElement,
-                { rotationX: -90, opacity: 0, y: 20 },
-                { rotationX: 0, opacity: 1, y: 0, duration: options.duration || 0.65, ease: options.ease || "power3.out" }
-            );
-        });
-
-        // Wait for the duration of the unfold
-        tl.to({}, { duration: options.duration || 0.65 });
-        
-        // Wait for the delay between words
-        tl.to({}, { duration: options.delayBetween || 0.3 });
-        
-        // Fold away animation (except for the last word)
-        if (index < sequence.length - 1) {
-            tl.call(() => {
-                const wordElement = container.querySelector('.fold-word');
-                if (wordElement) {
-                    gsap.to(wordElement, {
-                        rotationX: 90, opacity: 0, y: -20, 
-                        duration: 0.4, 
-                        ease: "power2.in"
-                    });
-                }
-            });
-            // Wait for fold away to finish
-            tl.to({}, { duration: 0.4 });
-        } else {
-            // Stay on the last word slightly longer
-            tl.to({}, { duration: 0.8 });
-        }
-    });
-
-    return {
-        skip: () => {
-            if (!completed) {
-                tl.kill();
-                safeComplete();
-            }
-        }
-    };
-}
-
+});
 

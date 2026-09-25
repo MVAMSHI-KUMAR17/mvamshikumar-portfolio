@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preloader Showcase</title>
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style_v2.css?v=19">
+    <style>
+        /* Force body to be dark and preloader to be permanently visible */
+        body {
+            margin: 0;
+            background-color: black;
+        }
+
+        .preloader {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100vw !important;
+            height: 100vh !important;
+            background-color: #000000;
+            background-image: 
+                radial-gradient(150% 50% at top center, rgba(255, 50, 50, 1) 0%, rgba(153, 0, 0, 0.8) 25%, rgba(100, 0, 0, 0.4) 50%, transparent 80%),
+                linear-gradient(to top, #000000 0%, #000000 20%, #200000 60%, #400000 100%);
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            overflow: hidden !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            z-index: 9999;
+        }
+
+        .skip-btn-wrapper {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            z-index: 10000;
+            display: none;
+        }
+
+        .skip-btn-wrapper.visible {
+            display: block !important;
+            animation: slideUpFade 0.4s ease forwards;
+        }
+
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader with FoldText -->
+    <div id="preloader" class="preloader">
+        <div id="preloader-fold-text" class="fold-text"
+            style="color: #f7f2e8; font-size: clamp(2rem, 5vw, 4rem); font-weight: 800;"></div>
+        
+        <div id="skip-preloader-btn" class="skip-btn-wrapper">
+            <button class="glow-ring-btn" onclick="window.location.href='index.html'" style="cursor: pointer; background: transparent; border: none; padding: 0;">
+                <span class="glow-ring-blur"></span>
+                <span class="glow-ring-border"></span>
+                <span class="glow-ring-btn-inner">
+                    <span class="btn-text">Skip</span>
+                    <span class="arrow-icon">↗</span>
+                </span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Font Awesome for icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script src="script_v2.js?v=12"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // Lock scrolling while preloader is active
+            document.body.style.overflow = 'hidden';
+            
+            const sequence = [
+                "Hi", 
+                "नमस्ते", 
+                "নমস্কার", 
+                "नमस्कार", 
+                "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", 
+                "నమస్కారం", 
+                "வணக்கம்", 
+                "ನಮಸ್ಕಾರ", 
+                "നമസ്കാരം", 
+                "ନମସ୍କାର", 
+                "નમસ્તે", 
+                "Welcome", 
+                "To", 
+                "M. Vamshi Kumar", 
+                "Portfolio"
+            ];
+
+            initFoldTextSequence('preloader-fold-text', sequence, {
+                splitBy: 'word', // or char, depending on preference
+                hinge: 'top',
+                duration: 0.65,
+                stagger: 0.045,
+                ease: 'power3.out',
+                perspective: 700,
+                creaseShading: 0.55,
+                delayBetween: 0.3
+            }, () => {
+                // When sequence completes, shift/slide out the preloader
+                const preloader = document.getElementById('preloader');
+                if (preloader) {
+                    preloader.style.transition = 'transform 0.8s cubic-bezier(0.77, 0, 0.175, 1)';
+                    preloader.style.transform = 'translateY(-100%)';
+                    
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 800);
+                }
+            });
+
+            // Skip Button Logic
+            const skipBtn = document.getElementById('skip-preloader-btn');
+            if (skipBtn) {
+                // Show after 2 seconds
+                setTimeout(() => {
+                    skipBtn.style.display = 'block';
+                    skipBtn.classList.add('visible');
+                }, 2000);
+
+                // Redirect on click
+                skipBtn.addEventListener('click', () => {
+                    // Optional: transition out before redirect
+                    const preloader = document.getElementById('preloader');
+                    if (preloader) {
+                        preloader.style.transition = 'transform 0.4s ease';
+                        preloader.style.transform = 'translateY(-100%)';
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 400);
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

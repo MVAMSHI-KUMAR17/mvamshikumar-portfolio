@@ -53,20 +53,23 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="stylesheet" href="style.css?v=19">
+    <link rel="stylesheet" href="style_v2.css?v=19">
 </head>
 <body>
     <!-- Preloader -->
     <div id="preloader" class="preloader">
         <div id="preloader-fold-text" class="fold-text" style="color: #f7f2e8; font-size: clamp(2rem, 5vw, 4rem); font-weight: 800;"></div>
-        <button id="preloader-skip" class="glow-ring-btn preloader-skip-btn">
-            <span class="glow-ring-blur"></span>
-            <span class="glow-ring-border"></span>
-            <span class="glow-ring-btn-inner">
-                <span class="btn-text" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 15px; letter-spacing: 0.3px; -webkit-font-smoothing: antialiased;">Skip</span>
-                <span class="arrow-icon">↗</span>
-            </span>
-        </button>
+        
+        <div id="skip-preloader-btn" class="skip-btn-wrapper">
+            <button class="glow-ring-btn" onclick="skipPreloaderEarly()" style="cursor: pointer; background: transparent; border: none; padding: 0;">
+                <span class="glow-ring-blur"></span>
+                <span class="glow-ring-border"></span>
+                <span class="glow-ring-btn-inner">
+                    <span class="btn-text" style="color: white; font-weight: 600;">Skip</span>
+                    <span class="arrow-icon" style="color: white;">↗</span>
+                </span>
+            </button>
+        </div>
     </div>
 
     <!-- Background Canvas Animation -->
@@ -297,7 +300,7 @@
                             <h5>Microsoft & LinkedIn Learning</h5>
                             <p>Completed professional learning in Generative AI covering Artificial Intelligence, Generative AI fundamentals, responsible AI, and Computer Ethics.</p>
                         </div>
-                        <a href="resume/Generative_AI_Certificate.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                        <a href="LinkedIN/CertificateOfCompletion_Career Essentials in Generative AI by Microsoft and LinkedIn/certificate/CertificateOfCompletion_Career Essentials in Generative AI by Microsoft and LinkedIn.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
                     </div>
                     
                     <div class="award-card fade-up glass-card delay-1" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
@@ -319,6 +322,46 @@
                         </div>
                         <a href="LinkedIN/Generative ai and ethics/certificate/CertificateOfCompletion_Ethics in the Age of Generative AI.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
                     </div>
+
+                      <div class="award-card fade-up glass-card delay-3" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                          <div>
+                              <i class="fas fa-certificate award-icon"></i>
+                              <h3>What Is Generative AI</h3>
+                              <h5>LinkedIn Learning</h5>
+                              <p>Understanding the fundamentals, capabilities, and real-world impact of Generative AI systems.</p>
+                          </div>
+                          <a href="LinkedIN/Generative AI certifications and files by microsoft and linkedin/Certifications/CertificateOfCompletion_What Is Generative AI.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                      </div>
+
+                      <div class="award-card fade-up glass-card delay-4" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                          <div>
+                              <i class="fas fa-certificate award-icon"></i>
+                              <h3>Generative AI: The Evolution of Thoughtful Online Search</h3>
+                              <h5>LinkedIn Learning</h5>
+                              <p>Mastering AI-driven search methodologies, prompt engineering, and the evolution of search engines.</p>
+                          </div>
+                          <a href="LinkedIN/generative ai evolution/certifications/CertificateOfCompletion_Generative AI The Evolution of Thoughtful Online Search.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                      </div>
+
+                      <div class="award-card fade-up glass-card delay-5" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                          <div>
+                              <i class="fas fa-certificate award-icon"></i>
+                              <h3>Learning Microsoft 365 Copilot</h3>
+                              <h5>LinkedIn Learning</h5>
+                              <p>Effectively utilizing Microsoft 365 Copilot to enhance productivity and streamline workflows.</p>
+                          </div>
+                          <a href="LinkedIN/Microsoft 365 Copilot/certificate/CertificateOfCompletion_Learning Microsoft 365 Copilot.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                      </div>
+
+                      <div class="award-card fade-up glass-card delay-6" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                          <div>
+                              <i class="fas fa-certificate award-icon"></i>
+                              <h3>Streamlining Your Work with Microsoft Copilot</h3>
+                              <h5>LinkedIn Learning</h5>
+                              <p>Advanced techniques for leveraging Microsoft Copilot to optimize daily tasks and efficiency.</p>
+                          </div>
+                          <a href="LinkedIN/Streamlining Your Work with Microsoft Copilot/certifications/CertificateOfCompletion_Streamlining Your Work with Microsoft Copilot.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                      </div>
 
                     <div class="award-card fade-up glass-card" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
                         <div>
@@ -414,34 +457,6 @@
                 </div>
             </section>
 
-            <!-- 3D Fan Deck Gallery Modal -->
-            <div id="gallery-modal" class="gallery-modal">
-                <span id="gallery-modal-close" class="gallery-modal-close">&times;</span>
-                <div class="gallery-fan-stage">
-                    <div class="gallery-fan-container" id="gallery-fan-container">
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/1000070379-01.jpeg" class="gallery-fan-image" alt="Gallery Image 1"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/20260808_123243(0).jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 2"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/55100411306_f6a451ee64_o.jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 3"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/IMG-20250703-WA0002.jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 4"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/IMG-20251126-WA0001.jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 5"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/Picsart_25-05-31_11-54-21-266.png" class="gallery-fan-image" alt="Gallery Image 6"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery1.jpg" class="gallery-fan-image" alt="IEM Award Poster"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery2.jpg" class="gallery-fan-image" alt="Placement at DAHUA"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery3.jpg" class="gallery-fan-image" alt="IEM Certification"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery4.jpg" class="gallery-fan-image" alt="Paper presentation at NIT Durgapur"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery5.jpg" class="gallery-fan-image" alt="Paper presentation Technical Event"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery6.jpg" class="gallery-fan-image" alt="Certification"></div></div>
-                    </div>
-                </div>
-                
-                <!-- Gallery Controls -->
-                <div class="gallery-controls">
-                    <button id="gallery-prev" class="gallery-control-btn"><i class="fas fa-chevron-left"></i></button>
-                    <button id="gallery-play-pause" class="gallery-control-btn"><i class="fas fa-pause"></i></button>
-                    <button id="gallery-next" class="gallery-control-btn"><i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
-
             <!-- Contact Section & Footer -->
             <section id="contact" class="contact-section fade-up">
                 <div class="contact-container">
@@ -458,7 +473,7 @@
                                 <i class="fab fa-linkedin"></i>
                                 <span>LinkedIn Network</span>
                             </a>
-                            <a href="mailto:vamshikumar172003@gmail.com" class="contact-btn email-btn">
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=vamshikumar172003@gmail.com&su=Hello Vamshi - Reaching out from your Portfolio&body=Hi Vamshi,%0A%0AI saw your portfolio and would like to connect..." target="_blank" rel="noopener noreferrer" class="contact-btn email-btn">
                                 <i class="fas fa-envelope"></i>
                                 <span>Email Me</span>
                             </a>
@@ -490,6 +505,34 @@
 
 
 
+    <!-- 3D Fan Deck Gallery Modal -->
+            <div id="gallery-modal" class="gallery-modal">
+                <span id="gallery-modal-close" class="gallery-modal-close">&times;</span>
+                <div class="gallery-fan-stage">
+                    <div class="gallery-fan-container" id="gallery-fan-container">
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/1000070379-01.jpeg" class="gallery-fan-image" alt="Gallery Image 1"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/20260808_123243(0).jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 2"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/55100411306_f6a451ee64_o.jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 3"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/IMG-20250703-WA0002.jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 4"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/IMG-20251126-WA0001.jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 5"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/Picsart_25-05-31_11-54-21-266.png" class="gallery-fan-image" alt="Gallery Image 6"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery1.jpg" class="gallery-fan-image" alt="IEM Award Poster"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery2.jpg" class="gallery-fan-image" alt="Placement at DAHUA"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery3.jpg" class="gallery-fan-image" alt="IEM Certification"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery4.jpg" class="gallery-fan-image" alt="Paper presentation at NIT Durgapur"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery5.jpg" class="gallery-fan-image" alt="Paper presentation Technical Event"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery6.jpg" class="gallery-fan-image" alt="Certification"></div></div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Controls -->
+                <div class="gallery-controls">
+                    <button id="gallery-prev" class="gallery-control-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button id="gallery-play-pause" class="gallery-control-btn"><i class="fas fa-pause"></i></button>
+                    <button id="gallery-next" class="gallery-control-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+
     <!-- Lightbox Modal (for individual fullscreen viewing) -->
     <div id="lightbox" class="lightbox">
         <span class="lightbox-close">&times;</span>
@@ -507,7 +550,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
-    <script src="script.js?v=12"></script>
+    <script src="script_v2.js?v=13"></script>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             const preloader = document.getElementById('preloader');
@@ -533,7 +576,7 @@
                 "Portfolio"
             ];
             
-            const preloaderSeq = initFoldTextSequence('preloader-fold-text', sequence, {
+            initFoldTextSequence('preloader-fold-text', sequence, {
                 splitBy: 'word', 
                 hinge: 'top',
                 duration: 0.65,
@@ -576,24 +619,36 @@
                 }
             });
 
-            // Skip button logic
-            const skipBtn = document.getElementById('preloader-skip');
+            // Skip Button Logic
+            const skipBtn = document.getElementById('skip-preloader-btn');
             if (skipBtn) {
-                // Show skip button after 2 seconds
                 setTimeout(() => {
-                    skipBtn.classList.add('show');
+                    skipBtn.classList.add('visible');
                 }, 2000);
-
-                // Handle click
-                skipBtn.addEventListener('click', () => {
-                    // Hide the skip button
-                    skipBtn.style.display = 'none';
-                    // Skip the text sequence and trigger onComplete immediately
-                    if (preloaderSeq && preloaderSeq.skip) {
-                        preloaderSeq.skip();
-                    }
-                });
             }
+
+            window.skipPreloaderEarly = function() {
+                const preloader = document.getElementById('preloader');
+                if (preloader) {
+                    preloader.style.transition = 'transform 1.2s cubic-bezier(0.77, 0, 0.175, 1)';
+                    preloader.style.transform = 'translateY(-100%)';
+                    
+                    const overlay = document.querySelector('.content-overlay');
+                    const canvasBg = document.querySelector('.animation-container');
+                    
+                    if (overlay && canvasBg && typeof gsap !== 'undefined') {
+                        gsap.fromTo([canvasBg, overlay], 
+                            { y: 150, opacity: 0 }, 
+                            { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out' }
+                        );
+                    }
+                    
+                    setTimeout(() => {
+                        document.body.style.overflow = '';
+                        preloader.style.display = 'none';
+                    }, 1200);
+                }
+            };
         });
     </script>
 </body>
