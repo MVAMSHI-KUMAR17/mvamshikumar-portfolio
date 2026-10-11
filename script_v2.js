@@ -845,7 +845,7 @@ function initFoldTextSequence(elementId, strings, options = {}, onComplete = nul
         }, `+=${delayBetween}`);
     } else {
         // If it IS the last word, just wait a moment before completing the timeline
-        tl.to({}, { duration: delayBetween });
+        tl.to({}, { duration: Math.max(delayBetween, 0.8) });
     }
   }
 

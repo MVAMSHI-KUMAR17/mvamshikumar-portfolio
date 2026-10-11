@@ -51,11 +51,13 @@
         .fold-text {
             display: inline-block;
             color: #f7f2e8;
-            font-size: clamp(2rem, 5vw, 4rem);
+            font-size: clamp(1.4rem, 4.2vw, 3.8rem);
             font-weight: 800;
-            line-height: 0.95;
+            line-height: 1.1;
             perspective: 700px;
             text-align: center;
+            white-space: nowrap;
+            max-width: 95vw;
         }
         
         .fold-text-piece {
@@ -247,6 +249,7 @@
                 const visual = document.createElement('span');
                 visual.className = 'fold-text-visual';
                 visual.style.display = 'inline-block';
+                visual.style.whiteSpace = 'nowrap';
                 visual.style.transformStyle = 'preserve-3d';
                 root.appendChild(visual);
 
@@ -332,7 +335,7 @@
                     }, "+=" + delayBetween);
                 } else {
                     // Last word, pause a little bit, then call onComplete
-                    tl.to({}, { duration: 0.5, onComplete: () => {
+                    tl.to({}, { duration: 0.8, onComplete: () => {
                         if (onComplete) onComplete();
                     }});
                 }
@@ -357,10 +360,7 @@
                 "നമസ്കാരം", 
                 "ନମସ୍କାର", 
                 "નમસ્તે", 
-                "Welcome", 
-                "To", 
-                "M. Vamshi Kumar", 
-                "Portfolio"
+                "Welcome to my Portfolio"
             ];
             
             initFoldTextSequence('preloader-fold-text', sequence, {
