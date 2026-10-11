@@ -169,6 +169,7 @@ function initUI() {
     let currentImageIndex = 0;
 
     function showImage(index) {
+        if (!galleryImages || galleryImages.length === 0) return;
         if (index < 0) {
             currentImageIndex = galleryImages.length - 1;
         } else if (index >= galleryImages.length) {
@@ -177,15 +178,15 @@ function initUI() {
             currentImageIndex = index;
         }
         
-        lightboxImg.style.opacity = 0.5;
-        setTimeout(() => {
-            if(galleryImages[currentImageIndex]) {
-                lightboxImg.src = galleryImages[currentImageIndex].src;
-            }
-            lightboxImg.style.opacity = 1;
-        }, 150);
-    }
+        if (lightboxImg && galleryImages[currentImageIndex]) {
+            lightboxImg.src = galleryImages[currentImageIndex].src;
+            lightboxImg.alt = galleryImages[currentImageIndex].alt || 'Gallery Photo';
+        }
 
+        if (typeof window.setFanDeckActiveIndex === 'function') {
+            window.setFanDeckActiveIndex(currentImageIndex);
+        }
+    }
 
     // Navigation buttons
     if (lightboxPrev) {
@@ -203,14 +204,16 @@ function initUI() {
     }
 
     if (lightboxClose) {
-        lightboxClose.addEventListener('click', () => {
+        lightboxClose.addEventListener('click', (e) => {
+            e.stopPropagation();
             lightbox.classList.remove('active');
         });
     }
 
     if (lightbox) {
         lightbox.addEventListener('click', (e) => {
-            if (e.target !== lightboxImg && e.target !== lightboxPrev && e.target !== lightboxNext) {
+            // Close ONLY if clicking the backdrop outside the image wrapper
+            if (e.target === lightbox || e.target.id === 'lightbox') {
                 lightbox.classList.remove('active');
             }
         });
@@ -232,9 +235,26 @@ function initUI() {
         if (e.key === 'Escape') {
             if (lightbox && lightbox.classList.contains('active')) {
                 lightbox.classList.remove('active');
+                return;
             }
+            const galleryModal = document.getElementById('gallery-modal');
             if (galleryModal && galleryModal.classList.contains('active')) {
-                galleryModal.classList.remove('active');
+                if (typeof window.closeGalleryModal === 'function') {
+                    window.closeGalleryModal();
+                } else {
+                    galleryModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+            const certModal = document.getElementById('cert-viewer-modal');
+            if (certModal && certModal.classList.contains('active')) {
+                certModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            const termsModal = document.getElementById('terms-modal');
+            if (termsModal && termsModal.classList.contains('active')) {
+                termsModal.classList.remove('active');
+                document.body.style.overflow = '';
             }
         } else if (e.key === 'ArrowRight' && lightbox && lightbox.classList.contains('active')) {
             showImage(currentImageIndex + 1);
@@ -299,6 +319,11 @@ function initUI() {
             });
         });
     }
+
+    // Initialize Security and Modals
+    initPortfolioSecurity();
+    initCertViewer();
+    initTermsModal();
 }
 
 if (document.readyState === 'loading') {
@@ -357,7 +382,7 @@ function initFanDeck() {
 
             let spread = isModalOpen ? 1 : 0;
             
-            // Limit visible cards to 5 (offset -2 to 2) like the video
+            // Limit visible cards to 5 (offset -2 to 2)
             let calcOffset = offset;
             if (Math.abs(offset) > 2) {
                 opacity = 0;
@@ -374,12 +399,12 @@ function initFanDeck() {
             let translateX = calcOffset * maxTranslateX * spread;
             let translateZ = Math.abs(calcOffset) * maxTranslateZ * spread;
             let translateY = Math.abs(calcOffset) * 15 * spread; 
-            
 
             card.style.zIndex = zIndex;
-            card.style.opacity = isModalOpen ? (opacity === 0 ? 0 : 1) : 0;
-            // Center card gets full opacity even when collapsed for the spring effect
-            if (!isModalOpen && offset === 0) card.style.opacity = 1;
+            const isCardVisible = isModalOpen ? (opacity > 0) : (offset === 0);
+            card.style.opacity = isModalOpen ? (opacity === 0 ? 0 : 1) : (offset === 0 ? 1 : 0);
+            card.style.visibility = isCardVisible ? 'visible' : 'hidden';
+            card.style.pointerEvents = isCardVisible ? 'auto' : 'none';
 
             if (offset === 0 && isModalOpen) {
                 card.classList.add('is-active-card');
@@ -387,6 +412,8 @@ function initFanDeck() {
                 card.classList.remove('is-active-card');
             }
 
+            // Direct GPU transform: bypass CSS variable cascade for 60fps compositor speed
+            card.style.transform = `translate3d(${translateX}px, ${translateY}px, ${translateZ}px) rotateZ(${rotateZ}deg)`;
             card.style.setProperty('--tx', `${translateX}px`);
             card.style.setProperty('--ty', `${translateY}px`);
             card.style.setProperty('--tz', `${translateZ}px`);
@@ -405,84 +432,124 @@ function initFanDeck() {
     }
 
     function startAutoPlay() {
-        if (!autoPlayInterval) {
-            autoPlayInterval = setInterval(nextCard, 3000);
+        if (autoPlayInterval) clearInterval(autoPlayInterval);
+        autoPlayInterval = setInterval(nextCard, 2600);
+        if (playPauseBtn) {
             playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-            isPlaying = true;
+            playPauseBtn.setAttribute('title', 'Pause Slideshow');
+            playPauseBtn.setAttribute('aria-label', 'Pause Slideshow');
         }
+        isPlaying = true;
     }
 
     function stopAutoPlay() {
         if (autoPlayInterval) {
             clearInterval(autoPlayInterval);
             autoPlayInterval = null;
+        }
+        if (playPauseBtn) {
             playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-            isPlaying = false;
+            playPauseBtn.setAttribute('title', 'Play Slideshow');
+            playPauseBtn.setAttribute('aria-label', 'Play Slideshow');
+        }
+        isPlaying = false;
+    }
+
+    function toggleAutoPlay(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        if (isPlaying) {
+            stopAutoPlay();
+        } else {
+            nextCard(); // Advance immediately for instant responsiveness
+            startAutoPlay();
         }
     }
 
-    function toggleAutoPlay() {
-        if (isPlaying) stopAutoPlay();
-        else startAutoPlay();
-    }
-
-    // Modal Events
-    openBtn.addEventListener('click', () => {
+    function openModal() {
+        document.body.style.overflow = 'hidden';
         modal.classList.add('active');
         isModalOpen = true;
-        updateCards();
-        if (isPlaying) startAutoPlay();
-    });
+        // Two-phase RAF: paint modal frame instantly, then trigger fan animation smoothly
+        requestAnimationFrame(() => {
+            updateCards();
+            startAutoPlay();
+        });
+    }
 
-    closeBtn.addEventListener('click', () => {
+    function closeModal() {
         modal.classList.remove('active');
         isModalOpen = false;
         stopAutoPlay();
         updateCards();
-    });
+        document.body.style.overflow = '';
+    }
+
+    window.closeGalleryModal = closeModal;
+
+    // Modal Events
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
     
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
-            modal.classList.remove('active');
-            isModalOpen = false;
-            stopAutoPlay();
-            updateCards();
+            closeModal();
         }
     });
 
     // Control Events
-    if (nextBtn) nextBtn.addEventListener('click', () => { nextCard(); stopAutoPlay(); });
-    if (prevBtn) prevBtn.addEventListener('click', () => { prevCard(); stopAutoPlay(); });
-    if (playPauseBtn) playPauseBtn.addEventListener('click', toggleAutoPlay);
+    if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            nextCard();
+            stopAutoPlay();
+        });
+    }
+    if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            prevCard();
+            stopAutoPlay();
+        });
+    }
+    if (playPauseBtn) {
+        playPauseBtn.addEventListener('click', toggleAutoPlay);
+    }
     
     window.addEventListener('resize', () => {
         if (isModalOpen) updateCards();
     }, { passive: true });
     
     cards.forEach((card, i) => {
+        card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            // Synchronize active card in the 3D fan deck
+            activeIndex = i;
+            updateCards();
+            stopAutoPlay();
 
-        
-        card.addEventListener('click', () => {
-            let offset = ((i - activeIndex) % numCards + numCards) % numCards;
-            if (offset > Math.floor(numCards / 2)) offset -= numCards;
-
-            if (offset === 0) {
-                // If it is the center card, open lightbox
-                const img = card.querySelector('img');
-                const lightbox = document.getElementById('lightbox');
-                const lightboxImg = document.getElementById('lightbox-img');
-                if (lightbox && lightboxImg && img) {
-                    lightboxImg.src = img.src;
-                    lightbox.classList.add('active');
-                }
-            } else {
-                // If it is a side card, make it active
-                activeIndex = i;
-                updateCards();
-                stopAutoPlay();
+            // Open enlarged image in Lightbox on click
+            const img = card.querySelector('img');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            if (lightbox && lightboxImg && img) {
+                currentImageIndex = i;
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt || 'Gallery Photo';
+                lightbox.classList.add('active');
             }
         });
     });
+
+    window.setFanDeckActiveIndex = function(idx) {
+        activeIndex = idx;
+        updateCards();
+    };
 
     // Initial state
     updateCards();
@@ -850,4 +917,372 @@ function initFoldTextSequence(elementId, strings, options = {}, onComplete = nul
   }
 
   playNext();
+}
+
+// ----------------------------------------------------
+// PORTFOLIO SECURITY & ANTI-PIRACY PROTECTION ENGINE
+// ----------------------------------------------------
+function initPortfolioSecurity() {
+    // 1. Toast Notification Manager
+    const toast = document.getElementById('security-toast');
+    const toastMsg = document.getElementById('security-toast-msg');
+    let toastTimer = null;
+
+    function showSecurityToast(message) {
+        if (!toast) return;
+        if (toastMsg && message) {
+            toastMsg.textContent = message;
+        }
+        toast.classList.add('show');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3400);
+    }
+
+    // Dismiss toast on click
+    if (toast) {
+        toast.addEventListener('click', () => {
+            toast.classList.remove('show');
+            if (toastTimer) clearTimeout(toastTimer);
+        });
+    }
+
+    // 2. Context Menu (Right-Click) Interceptor
+    document.addEventListener('contextmenu', (e) => {
+        // Exemption: Allow right-click on explicitly permitted download links (Resume & 4 Project PDFs)
+        if (e.target.closest('.allowed-download') || e.target.classList.contains('allowed-download')) {
+            return;
+        }
+        
+        // Exemption: Allow right-click inside form inputs and textareas for message editing
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+            return;
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+        showSecurityToast('🔒 Content Protected: Downloading or saving portfolio images & certificates is restricted to prevent piracy.');
+    }, true);
+
+    // 3. Drag & Drop Protection (Prevents dragging images to desktop or other tabs)
+    document.addEventListener('dragstart', (e) => {
+        // Exemption: Allowed download elements
+        if (e.target.closest('.allowed-download') || e.target.classList.contains('allowed-download')) {
+            return;
+        }
+
+        // Block dragging of images, canvases, and media
+        if (
+            e.target.tagName === 'IMG' ||
+            e.target.tagName === 'CANVAS' ||
+            e.target.tagName === 'A' ||
+            e.target.closest('.gallery-fan-card') ||
+            e.target.closest('.project-img-container')
+        ) {
+            e.preventDefault();
+            showSecurityToast('🔒 Drag & Drop Disabled: Media extraction is protected under Copyright Protocol.');
+        }
+    }, true);
+
+    // 4. Touchscreen Long-Press Protection for Mobile & Tablet Devices
+    let touchTimer = null;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    document.addEventListener('touchstart', (e) => {
+        if (e.target.closest('.allowed-download')) return;
+
+        const touch = e.touches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+
+        const isProtectedTarget = e.target.tagName === 'IMG' ||
+            e.target.tagName === 'CANVAS' ||
+            e.target.classList.contains('image-protection-shield') ||
+            e.target.classList.contains('fan-card-shield') ||
+            e.target.classList.contains('cert-shield') ||
+            e.target.closest('.gallery-fan-card') ||
+            e.target.closest('.project-img-container') ||
+            e.target.closest('#lightbox-wrapper') ||
+            e.target.closest('#cert-canvas-container');
+
+        if (isProtectedTarget) {
+            touchTimer = setTimeout(() => {
+                showSecurityToast('🔒 Protected Media: Mobile saving is disabled to safeguard credentials and photographs.');
+            }, 450);
+        }
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+        if (touchTimer) {
+            const touch = e.touches[0];
+            const dist = Math.hypot(touch.clientX - touchStartX, touch.clientY - touchStartY);
+            if (dist > 10) {
+                clearTimeout(touchTimer);
+                touchTimer = null;
+            }
+        }
+    }, { passive: true });
+
+    document.addEventListener('touchend', () => {
+        if (touchTimer) {
+            clearTimeout(touchTimer);
+            touchTimer = null;
+        }
+    }, { passive: true });
+
+    document.addEventListener('touchcancel', () => {
+        if (touchTimer) {
+            clearTimeout(touchTimer);
+            touchTimer = null;
+        }
+    }, { passive: true });
+
+    // 5. Keyboard Shortcut Guard (Ctrl+S, Ctrl+P, Ctrl+U, PrintScreen, Inspect)
+    document.addEventListener('keydown', (e) => {
+        const isCtrlOrCmd = e.ctrlKey || e.metaKey;
+
+        // Ctrl+S / Cmd+S (Save webpage/image)
+        if (isCtrlOrCmd && (e.key === 's' || e.key === 'S')) {
+            e.preventDefault();
+            showSecurityToast('🔒 Page Saving Disabled: Direct file downloads of this portfolio are restricted.');
+            return;
+        }
+
+        // Ctrl+P / Cmd+P (Print page / save as PDF)
+        if (isCtrlOrCmd && (e.key === 'p' || e.key === 'P')) {
+            e.preventDefault();
+            showSecurityToast('🔒 Document Printing Restricted: Printing is disabled under Copyright Policy.');
+            return;
+        }
+
+        // Ctrl+U / Cmd+U (View source)
+        if (isCtrlOrCmd && (e.key === 'u' || e.key === 'U')) {
+            e.preventDefault();
+            showSecurityToast('🔒 View Source is disabled.');
+            return;
+        }
+
+        // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C, F12 (DevTools shortcuts)
+        if (
+            (isCtrlOrCmd && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) ||
+            e.key === 'F12'
+        ) {
+            e.preventDefault();
+            showSecurityToast('🔒 Inspection shortcut restricted under Content Security Protocol.');
+            return;
+        }
+    });
+
+    // 6. Canvas Anti-Extraction Protection
+    try {
+        const origToDataURL = HTMLCanvasElement.prototype.toDataURL;
+        HTMLCanvasElement.prototype.toDataURL = function(...args) {
+            if (this.id === 'cert-canvas' || this.id === 'scroll-animation') {
+                showSecurityToast('🔒 Canvas Data Extraction Restricted.');
+                return 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+            }
+            return origToDataURL.apply(this, args);
+        };
+        
+        const origToBlob = HTMLCanvasElement.prototype.toBlob;
+        HTMLCanvasElement.prototype.toBlob = function(callback, ...args) {
+            if (this.id === 'cert-canvas' || this.id === 'scroll-animation') {
+                showSecurityToast('🔒 Canvas Extraction Restricted.');
+                return;
+            }
+            return origToBlob.apply(this, [callback, ...args]);
+        };
+    } catch (err) {
+        // Non-blocking fallback
+    }
+}
+
+// ----------------------------------------------------
+// SECURE READ-ONLY CERTIFICATE VIEWER (PDF.js Canvas)
+// ----------------------------------------------------
+function initCertViewer() {
+    if (typeof pdfjsLib !== 'undefined') {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'assets/pdf.worker.min.js';
+    }
+
+    const modal = document.getElementById('cert-viewer-modal');
+    const overlay = document.getElementById('cert-modal-overlay');
+    const closeBtn = document.getElementById('cert-modal-close');
+    const titleEl = document.getElementById('cert-modal-title');
+    const issuerEl = document.getElementById('cert-modal-issuer');
+    const loader = document.getElementById('cert-loader');
+    const canvas = document.getElementById('cert-canvas');
+    const zoomInBtn = document.getElementById('cert-zoom-in');
+    const zoomOutBtn = document.getElementById('cert-zoom-out');
+    const zoomResetBtn = document.getElementById('cert-zoom-reset');
+    const zoomLevelEl = document.getElementById('cert-zoom-level');
+
+    if (!modal || !canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let currentPdfDoc = null;
+    let currentZoom = 1.0;
+    let isRendering = false;
+    let renderPending = false;
+
+    async function renderPage(zoom) {
+        if (!currentPdfDoc) return;
+        isRendering = true;
+
+        try {
+            const page = await currentPdfDoc.getPage(1);
+            
+            // Calculate base scale to fit nicely in container
+            const modalBody = modal.querySelector('.cert-modal-body');
+            const containerWidth = (modalBody ? modalBody.clientWidth : window.innerWidth * 0.8) - 60;
+            const unscaledViewport = page.getViewport({ scale: 1.0 });
+            
+            let baseScale = Math.min(1.4, Math.max(0.65, (containerWidth / unscaledViewport.width)));
+            const finalScale = baseScale * zoom;
+            
+            const viewport = page.getViewport({ scale: finalScale });
+            
+            // High DPI support for razor-sharp rendering on mobile and desktop
+            const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+            canvas.width = Math.floor(viewport.width * dpr);
+            canvas.height = Math.floor(viewport.height * dpr);
+            canvas.style.width = `${Math.floor(viewport.width)}px`;
+            canvas.style.height = `${Math.floor(viewport.height)}px`;
+
+            const renderContext = {
+                canvasContext: ctx,
+                viewport: viewport,
+                transform: [dpr, 0, 0, dpr, 0, 0]
+            };
+
+            await page.render(renderContext).promise;
+
+            if (loader) loader.style.display = 'none';
+            if (zoomLevelEl) zoomLevelEl.textContent = `${Math.round(zoom * 100)}%`;
+            isRendering = false;
+
+            if (renderPending) {
+                renderPending = false;
+                renderPage(currentZoom);
+            }
+        } catch (err) {
+            console.error('Error rendering certificate:', err);
+            if (loader) {
+                loader.innerHTML = '<div style="color:#ff6b35;font-weight:600;"><i class="fas fa-exclamation-triangle"></i> Failed to render protected certificate.</div>';
+            }
+            isRendering = false;
+        }
+    }
+
+    function queueRender(zoom) {
+        currentZoom = Math.min(2.5, Math.max(0.6, zoom));
+        if (isRendering) {
+            renderPending = true;
+        } else {
+            renderPage(currentZoom);
+        }
+    }
+
+    async function openCertificate(pdfPath, title, issuer) {
+        if (!pdfPath) return;
+
+        currentZoom = 1.0;
+        currentPdfDoc = null;
+        if (titleEl) titleEl.textContent = title || 'Certificate of Completion';
+        if (issuerEl) issuerEl.innerHTML = `<i class="fas fa-award"></i> ${issuer || 'Verified Credential'}`;
+        if (loader) {
+            loader.style.display = 'flex';
+            loader.innerHTML = '<div class="cert-spinner"></div><p>Securing and rendering credential...</p>';
+        }
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        try {
+            if (typeof pdfjsLib === 'undefined') {
+                throw new Error('PDF.js library not loaded');
+            }
+
+            const loadingTask = pdfjsLib.getDocument({
+                url: pdfPath,
+                cMapUrl: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/',
+                cMapPacked: true
+            });
+
+            currentPdfDoc = await loadingTask.promise;
+            await renderPage(currentZoom);
+        } catch (err) {
+            console.error('Error loading certificate PDF:', err);
+            if (loader) {
+                loader.innerHTML = '<div style="color:#ff6b35;font-weight:600;padding:20px;text-align:center;"><i class="fas fa-shield-alt" style="font-size:2rem;margin-bottom:10px;display:block;"></i>Protected Credential Access Failed.<br><small style="color:#888;">Ensure credential is available.</small></div>';
+            }
+        }
+    }
+
+    function closeCertificate() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        currentPdfDoc = null;
+        if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // Attach to View Certificate buttons
+    document.querySelectorAll('.view-cert-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const title = btn.getAttribute('data-title');
+            const issuer = btn.getAttribute('data-issuer');
+            const pdf = btn.getAttribute('data-pdf');
+            openCertificate(pdf, title, issuer);
+        });
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeCertificate);
+    if (overlay) overlay.addEventListener('click', closeCertificate);
+
+    if (zoomInBtn) {
+        zoomInBtn.addEventListener('click', () => queueRender(currentZoom + 0.25));
+    }
+    if (zoomOutBtn) {
+        zoomOutBtn.addEventListener('click', () => queueRender(currentZoom - 0.25));
+    }
+    if (zoomResetBtn) {
+        zoomResetBtn.addEventListener('click', () => queueRender(1.0));
+    }
+
+    window.addEventListener('resize', () => {
+        if (modal.classList.contains('active') && currentPdfDoc) {
+            queueRender(currentZoom);
+        }
+    }, { passive: true });
+}
+
+// ----------------------------------------------------
+// TERMS & CONDITIONS MODAL LOGIC
+// ----------------------------------------------------
+function initTermsModal() {
+    const modal = document.getElementById('terms-modal');
+    const openBtn = document.getElementById('open-terms-btn');
+    const closeBtn = document.getElementById('terms-modal-close');
+    const acceptBtn = document.getElementById('terms-accept-btn');
+    const overlay = document.getElementById('terms-modal-overlay');
+
+    if (!modal || !openBtn) return;
+
+    function openTerms() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeTerms() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openTerms);
+    if (closeBtn) closeBtn.addEventListener('click', closeTerms);
+    if (acceptBtn) acceptBtn.addEventListener('click', closeTerms);
+    if (overlay) overlay.addEventListener('click', closeTerms);
 }

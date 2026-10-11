@@ -53,7 +53,7 @@
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="stylesheet" href="style_v2.css?v=19">
+    <link rel="stylesheet" href="style_v2.css?v=26">
 </head>
 <body>
     <!-- Preloader -->
@@ -122,7 +122,7 @@
                     <h2 class="sub-title">Electrical Engineering Student<br>& Project Developer</h2>
                     <p class="description">Passionate about Renewable Energy, AI, Industrial Automation, and building sustainable engineering solutions.</p>
                     <div class="hero-buttons">
-                        <a href="resume/resume.pdf" target="_blank" class="btn-primary" style="margin-right: 15px;">Download Resume</a>
+                        <a href="resume/resume.pdf" download="M_Vamshi_Kumar_Resume.pdf" target="_blank" class="btn-primary allowed-download" style="margin-right: 15px;"><i class="fas fa-download"></i> Download Resume</a>
                         <a href="https://www.linkedin.com/in/m-vamshi-kumar-647599320/" target="_blank" class="btn-secondary">LinkedIn</a>
                     </div>
                 </div>
@@ -217,42 +217,54 @@
                 <div class="project-grid">
                     
                     <div class="project-glass-card fade-up">
-                        <img loading="lazy" src="assets/solar.jpg" alt="Solar Project" class="project-img">
+                        <div class="project-img-container">
+                            <img loading="lazy" src="assets/solar.jpg" alt="Solar Project" class="project-img" draggable="false">
+                            <div class="image-protection-shield" title="Protected Content"></div>
+                        </div>
                         <div class="project-content">
                             <span class="badge bg-warning text-dark mb-2">🏆 Award Winning</span>
                             <h3>Relay Based Solar Powered Street Light</h3>
                             <p>Designed a relay-controlled solar-powered street lighting system with emergency home backup. Secured 2nd Prize at IEM Kolkata.</p>
-                            <a href="resume/Solar_Project.pdf" target="_blank" class="btn-outline">View Project</a>
+                            <a href="resume/Solar_Project.pdf" download="Relay_Based_Solar_Street_Light_Project.pdf" target="_blank" class="btn-outline allowed-download"><i class="fas fa-download"></i> Download Project</a>
                         </div>
                     </div>
 
                     <div class="project-glass-card fade-up delay-1">
-                        <img loading="lazy" src="assets/etap.jpg" alt="ETAP" class="project-img">
+                        <div class="project-img-container">
+                            <img loading="lazy" src="assets/etap.jpg" alt="ETAP" class="project-img" draggable="false">
+                            <div class="image-protection-shield" title="Protected Content"></div>
+                        </div>
                         <div class="project-content">
                             <span class="badge bg-success mb-2">📄 Published Research</span>
                             <h3>Power System Analysis using ETAP</h3>
                             <p>Published research paper focusing on Load Flow Analysis, Power System Design and Simulation using ETAP software.</p>
-                            <a href="resume/ETAP_Research.pdf" target="_blank" class="btn-outline">Read Research</a>
+                            <a href="resume/ETAP_Research.pdf" download="Power_System_Analysis_ETAP_Research.pdf" target="_blank" class="btn-outline allowed-download"><i class="fas fa-download"></i> Download Research</a>
                         </div>
                     </div>
 
                     <div class="project-glass-card fade-up">
-                        <img loading="lazy" src="assets/safety_book.jpg" alt="Safety Book" class="project-img">
+                        <div class="project-img-container">
+                            <img loading="lazy" src="assets/safety_book.jpg" alt="Safety Book" class="project-img" draggable="false">
+                            <div class="image-protection-shield" title="Protected Content"></div>
+                        </div>
                         <div class="project-content">
                             <span class="badge bg-danger mb-2">📘 Technical Book</span>
                             <h3>Electrical Safety Awareness Booklet</h3>
                             <p>Developed a comprehensive Electrical Safety Awareness Book covering hazards, earthing, lightning protection, and PPE.</p>
-                            <a href="resume/Electrical_Safety_Book.pdf" target="_blank" class="btn-outline">View Book</a>
+                            <a href="resume/Electrical_Safety_Book.pdf" download="Electrical_Safety_Awareness_Booklet.pdf" target="_blank" class="btn-outline allowed-download"><i class="fas fa-download"></i> Download Booklet</a>
                         </div>
                     </div>
 
                     <div class="project-glass-card fade-up delay-1">
-                        <img loading="lazy" src="assets/substation.jpg" alt="Substation" class="project-img">
+                        <div class="project-img-container">
+                            <img loading="lazy" src="assets/substation.jpg" alt="Substation" class="project-img" draggable="false">
+                            <div class="image-protection-shield" title="Protected Content"></div>
+                        </div>
                         <div class="project-content">
                             <span class="badge bg-info mb-2">💡 Report</span>
                             <h3>33/11 KV Barasat Sub-Station</h3>
                             <p>Studied the operation of WBSEDCL Substation, gaining knowledge of transformers, switchgear, and protection systems.</p>
-                            <a href="resume/WBSEDCL%2033-11%20kv%20Barasat.pdf" target="_blank" class="btn-outline">View Project</a>
+                            <a href="resume/WBSEDCL%2033-11%20kv%20Barasat.pdf" download="WBSEDCL_33_11_kV_Substation_Report.pdf" target="_blank" class="btn-outline allowed-download"><i class="fas fa-download"></i> Download Project</a>
                         </div>
                     </div>
 
@@ -300,7 +312,13 @@
                             <h5>Microsoft & LinkedIn Learning</h5>
                             <p>Completed professional learning in Generative AI covering Artificial Intelligence, Generative AI fundamentals, responsible AI, and Computer Ethics.</p>
                         </div>
-                        <a href="LinkedIN/CertificateOfCompletion_Career Essentials in Generative AI by Microsoft and LinkedIn/certificate/CertificateOfCompletion_Career Essentials in Generative AI by Microsoft and LinkedIn.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                        <button type="button" class="btn-outline view-cert-btn" 
+                                data-title="Career Essentials in Generative AI" 
+                                data-issuer="Microsoft & LinkedIn Learning" 
+                                data-pdf="LinkedIN/CertificateOfCompletion_Career Essentials in Generative AI by Microsoft and LinkedIn/certificate/CertificateOfCompletion_Career Essentials in Generative AI by Microsoft and LinkedIn.pdf" 
+                                style="margin-top: 1.5rem; cursor: pointer;">
+                            <i class="fas fa-shield-alt"></i> View Certificate
+                        </button>
                     </div>
                     
                     <div class="award-card fade-up glass-card delay-1" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
@@ -310,7 +328,13 @@
                             <h5>LinkedIn Learning</h5>
                             <p>Learned the basics of artificial intelligence, its history, and its real-world applications across various industries.</p>
                         </div>
-                        <a href="LinkedIN/CertificateOfCompletion_Introduction to Artificial Intelligence/CertificateOfCompletion_Introduction to Artificial Intelligence.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                        <button type="button" class="btn-outline view-cert-btn" 
+                                data-title="Introduction to Artificial Intelligence" 
+                                data-issuer="LinkedIn Learning" 
+                                data-pdf="LinkedIN/CertificateOfCompletion_Introduction to Artificial Intelligence/CertificateOfCompletion_Introduction to Artificial Intelligence.pdf" 
+                                style="margin-top: 1.5rem; cursor: pointer;">
+                            <i class="fas fa-shield-alt"></i> View Certificate
+                        </button>
                     </div>
 
                     <div class="award-card fade-up glass-card delay-2" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
@@ -320,87 +344,77 @@
                             <h5>LinkedIn Learning</h5>
                             <p>Explored ethical challenges, bias mitigation, and considerations when deploying generative AI systems.</p>
                         </div>
-                        <a href="LinkedIN/Generative ai and ethics/certificate/CertificateOfCompletion_Ethics in the Age of Generative AI.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                        <button type="button" class="btn-outline view-cert-btn" 
+                                data-title="Ethics in the Age of Generative AI" 
+                                data-issuer="LinkedIn Learning" 
+                                data-pdf="LinkedIN/Generative ai and ethics/certificate/CertificateOfCompletion_Ethics in the Age of Generative AI.pdf" 
+                                style="margin-top: 1.5rem; cursor: pointer;">
+                            <i class="fas fa-shield-alt"></i> View Certificate
+                        </button>
                     </div>
 
-                      <div class="award-card fade-up glass-card delay-3" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-                          <div>
-                              <i class="fas fa-certificate award-icon"></i>
-                              <h3>What Is Generative AI</h3>
-                              <h5>LinkedIn Learning</h5>
-                              <p>Understanding the fundamentals, capabilities, and real-world impact of Generative AI systems.</p>
-                          </div>
-                          <a href="LinkedIN/Generative AI certifications and files by microsoft and linkedin/Certifications/CertificateOfCompletion_What Is Generative AI.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
-                      </div>
-
-                      <div class="award-card fade-up glass-card delay-4" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-                          <div>
-                              <i class="fas fa-certificate award-icon"></i>
-                              <h3>Generative AI: The Evolution of Thoughtful Online Search</h3>
-                              <h5>LinkedIn Learning</h5>
-                              <p>Mastering AI-driven search methodologies, prompt engineering, and the evolution of search engines.</p>
-                          </div>
-                          <a href="LinkedIN/generative ai evolution/certifications/CertificateOfCompletion_Generative AI The Evolution of Thoughtful Online Search.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
-                      </div>
-
-                      <div class="award-card fade-up glass-card delay-5" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-                          <div>
-                              <i class="fas fa-certificate award-icon"></i>
-                              <h3>Learning Microsoft 365 Copilot</h3>
-                              <h5>LinkedIn Learning</h5>
-                              <p>Effectively utilizing Microsoft 365 Copilot to enhance productivity and streamline workflows.</p>
-                          </div>
-                          <a href="LinkedIN/Microsoft 365 Copilot/certificate/CertificateOfCompletion_Learning Microsoft 365 Copilot.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
-                      </div>
-
-                      <div class="award-card fade-up glass-card delay-6" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-                          <div>
-                              <i class="fas fa-certificate award-icon"></i>
-                              <h3>Streamlining Your Work with Microsoft Copilot</h3>
-                              <h5>LinkedIn Learning</h5>
-                              <p>Advanced techniques for leveraging Microsoft Copilot to optimize daily tasks and efficiency.</p>
-                          </div>
-                          <a href="LinkedIN/Streamlining Your Work with Microsoft Copilot/certifications/CertificateOfCompletion_Streamlining Your Work with Microsoft Copilot.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
-                      </div>
-
-                    <div class="award-card fade-up glass-card" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div class="award-card fade-up glass-card delay-3" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
                         <div>
                             <i class="fas fa-certificate award-icon"></i>
                             <h3>What Is Generative AI</h3>
                             <h5>Microsoft & LinkedIn Learning</h5>
-                            <p>Foundational knowledge of what Generative AI is, how it works, and its creative potential.</p>
+                            <p>Understanding the fundamentals, capabilities, and real-world impact of Generative AI systems.</p>
                         </div>
-                        <a href="LinkedIN/Generative AI certifications and files by microsoft and linkedin/Certifications/CertificateOfCompletion_What Is Generative AI.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                        <button type="button" class="btn-outline view-cert-btn" 
+                                data-title="What Is Generative AI" 
+                                data-issuer="Microsoft & LinkedIn Learning" 
+                                data-pdf="LinkedIN/Generative AI certifications and files by microsoft and linkedin/Certifications/CertificateOfCompletion_What Is Generative AI.pdf" 
+                                style="margin-top: 1.5rem; cursor: pointer;">
+                            <i class="fas fa-shield-alt"></i> View Certificate
+                        </button>
                     </div>
 
-                    <div class="award-card fade-up glass-card delay-1" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div class="award-card fade-up glass-card delay-4" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
                         <div>
                             <i class="fas fa-certificate award-icon"></i>
                             <h3>Generative AI: The Evolution of Thoughtful Online Search</h3>
-                            <h5>LinkedIn Learning</h5>
-                            <p>Understood how AI is transforming online search paradigms and intelligent content discovery.</p>
+                            <h5>Microsoft & LinkedIn Learning</h5>
+                            <p>Mastering AI-driven search methodologies, prompt engineering, and the evolution of search engines.</p>
                         </div>
-                        <a href="LinkedIN/generative ai evolution/certifications/CertificateOfCompletion_Generative AI The Evolution of Thoughtful Online Search.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                        <button type="button" class="btn-outline view-cert-btn" 
+                                data-title="Generative AI: The Evolution of Thoughtful Online Search" 
+                                data-issuer="Microsoft & LinkedIn Learning" 
+                                data-pdf="LinkedIN/generative ai evolution/certifications/CertificateOfCompletion_Generative AI The Evolution of Thoughtful Online Search.pdf" 
+                                style="margin-top: 1.5rem; cursor: pointer;">
+                            <i class="fas fa-shield-alt"></i> View Certificate
+                        </button>
                     </div>
 
-                    <div class="award-card fade-up glass-card delay-2" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div class="award-card fade-up glass-card delay-5" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
                         <div>
                             <i class="fas fa-certificate award-icon"></i>
                             <h3>Learning Microsoft 365 Copilot</h3>
                             <h5>Microsoft & LinkedIn Learning</h5>
-                            <p>Learned how to leverage Microsoft 365 Copilot to enhance productivity and automate daily tasks.</p>
+                            <p>Effectively utilizing Microsoft 365 Copilot to enhance productivity and streamline workflows.</p>
                         </div>
-                        <a href="LinkedIN/Microsoft 365 Copilot/certificate/CertificateOfCompletion_Learning Microsoft 365 Copilot.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                        <button type="button" class="btn-outline view-cert-btn" 
+                                data-title="Learning Microsoft 365 Copilot" 
+                                data-issuer="Microsoft & LinkedIn Learning" 
+                                data-pdf="LinkedIN/Microsoft 365 Copilot/certificate/CertificateOfCompletion_Learning Microsoft 365 Copilot.pdf" 
+                                style="margin-top: 1.5rem; cursor: pointer;">
+                            <i class="fas fa-shield-alt"></i> View Certificate
+                        </button>
                     </div>
 
-                    <div class="award-card fade-up glass-card" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div class="award-card fade-up glass-card delay-6" style="max-width: 350px; width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
                         <div>
                             <i class="fas fa-certificate award-icon"></i>
                             <h3>Streamlining Your Work with Microsoft Copilot</h3>
                             <h5>Microsoft & LinkedIn Learning</h5>
-                            <p>Discovered advanced ways to streamline complex workflows and boost efficiency using Microsoft Copilot.</p>
+                            <p>Advanced techniques for leveraging Microsoft Copilot to optimize daily tasks and efficiency.</p>
                         </div>
-                        <a href="LinkedIN/Streamlining Your Work with Microsoft Copilot/certifications/CertificateOfCompletion_Streamlining Your Work with Microsoft Copilot.pdf" target="_blank" class="btn-outline" style="margin-top: 1.5rem;">View Certificate</a>
+                        <button type="button" class="btn-outline view-cert-btn" 
+                                data-title="Streamlining Your Work with Microsoft Copilot" 
+                                data-issuer="Microsoft & LinkedIn Learning" 
+                                data-pdf="LinkedIN/Streamlining Your Work with Microsoft Copilot/certifications/CertificateOfCompletion_Streamlining Your Work with Microsoft Copilot.pdf" 
+                                style="margin-top: 1.5rem; cursor: pointer;">
+                            <i class="fas fa-shield-alt"></i> View Certificate
+                        </button>
                     </div>
 
                 </div>
@@ -495,8 +509,17 @@
 
             <!-- Footer -->
             <footer class="footer">
-                <div class="footer-logo">
-                    <span>© 2026 M.Vamshi Kumar. All Rights Reserved.</span>
+                <div class="footer-container">
+                    <div class="footer-logo">
+                        <span>© 2026 M.Vamshi Kumar. All Rights Reserved.</span>
+                        <span class="footer-separator">•</span>
+                        <button id="open-terms-btn" class="terms-link-btn" type="button" aria-haspopup="dialog" aria-controls="terms-modal">
+                            <i class="fas fa-shield-alt"></i> Terms & Conditions
+                        </button>
+                    </div>
+                    <p class="footer-security-tagline">
+                        <i class="fas fa-lock"></i> <strong>Anti-Piracy Security Protocol Active:</strong> Personal photographs, certificates & media are protected against unauthorized downloads across all devices.
+                    </p>
                 </div>
             </footer>
         </div>
@@ -510,35 +533,157 @@
                 <span id="gallery-modal-close" class="gallery-modal-close">&times;</span>
                 <div class="gallery-fan-stage">
                     <div class="gallery-fan-container" id="gallery-fan-container">
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/1000070379-01.jpeg" class="gallery-fan-image" alt="Gallery Image 1"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/20260808_123243(0).jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 2"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/55100411306_f6a451ee64_o.jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 3"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/IMG-20250703-WA0002.jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 4"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/IMG-20251126-WA0001.jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 5"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="gallery/Picsart_25-05-31_11-54-21-266.png" class="gallery-fan-image" alt="Gallery Image 6"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery1.jpg" class="gallery-fan-image" alt="IEM Award Poster"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery2.jpg" class="gallery-fan-image" alt="Placement at DAHUA"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery3.jpg" class="gallery-fan-image" alt="IEM Certification"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery4.jpg" class="gallery-fan-image" alt="Paper presentation at NIT Durgapur"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery5.jpg" class="gallery-fan-image" alt="Paper presentation Technical Event"></div></div>
-                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img loading="lazy" src="images/gallery/gallery6.jpg" class="gallery-fan-image" alt="Certification"></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img decoding="async" src="gallery/1000070379-01.jpeg" class="gallery-fan-image" alt="Gallery Image 1" draggable="false"><div class="fan-card-shield"></div></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img decoding="async" src="gallery/20260808_123243(0).jpg.jpeg?v=2" class="gallery-fan-image" alt="Gallery Image 2" draggable="false"><div class="fan-card-shield"></div></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img decoding="async" src="gallery/55100411306_f6a451ee64_o.jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 3" draggable="false"><div class="fan-card-shield"></div></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img decoding="async" src="gallery/IMG-20250703-WA0002.jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 4" draggable="false"><div class="fan-card-shield"></div></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img decoding="async" src="gallery/IMG-20251126-WA0001.jpg.jpeg" class="gallery-fan-image" alt="Gallery Image 5" draggable="false"><div class="fan-card-shield"></div></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img decoding="async" src="gallery/Picsart_25-05-31_11-54-21-266.png" class="gallery-fan-image" alt="Gallery Image 6" draggable="false"><div class="fan-card-shield"></div></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img decoding="async" src="images/gallery/gallery1.jpg" class="gallery-fan-image" alt="IEM Award Poster" draggable="false"><div class="fan-card-shield"></div></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img decoding="async" src="images/gallery/gallery2.jpg" class="gallery-fan-image" alt="Placement at DAHUA" draggable="false"><div class="fan-card-shield"></div></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img decoding="async" src="images/gallery/gallery3.jpg" class="gallery-fan-image" alt="IEM Certification" draggable="false"><div class="fan-card-shield"></div></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img decoding="async" src="images/gallery/gallery4.jpg" class="gallery-fan-image" alt="Paper presentation at NIT Durgapur" draggable="false"><div class="fan-card-shield"></div></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img decoding="async" src="images/gallery/gallery5.jpg" class="gallery-fan-image" alt="Paper presentation Technical Event" draggable="false"><div class="fan-card-shield"></div></div></div>
+                        <div class="gallery-fan-card"><div class="gallery-fan-card-inner"><img decoding="async" src="images/gallery/gallery6.jpg" class="gallery-fan-image" alt="Certification" draggable="false"><div class="fan-card-shield"></div></div></div>
                     </div>
                 </div>
                 
                 <!-- Gallery Controls -->
                 <div class="gallery-controls">
-                    <button id="gallery-prev" class="gallery-control-btn"><i class="fas fa-chevron-left"></i></button>
-                    <button id="gallery-play-pause" class="gallery-control-btn"><i class="fas fa-pause"></i></button>
-                    <button id="gallery-next" class="gallery-control-btn"><i class="fas fa-chevron-right"></i></button>
+                    <button id="gallery-prev" class="gallery-control-btn" title="Previous Image" aria-label="Previous Image"><i class="fas fa-chevron-left"></i></button>
+                    <button id="gallery-play-pause" class="gallery-control-btn" title="Pause Slideshow" aria-label="Pause Slideshow"><i class="fas fa-pause"></i></button>
+                    <button id="gallery-next" class="gallery-control-btn" title="Next Image" aria-label="Next Image"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
 
-    <!-- Lightbox Modal (for individual fullscreen viewing) -->
-    <div id="lightbox" class="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <span class="lightbox-prev">&#10094;</span>
-        <span class="lightbox-next">&#10095;</span>
-        <img class="lightbox-content" id="lightbox-img">
+    <!-- Lightbox Modal (with Security Shield against downloads) -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Gallery Image Viewer">
+        <span class="lightbox-close" id="lightbox-close" title="Close (Esc)">&times;</span>
+        <span class="lightbox-prev" id="lightbox-prev" title="Previous Image">&#10094;</span>
+        <span class="lightbox-next" id="lightbox-next" title="Next Image">&#10095;</span>
+        <div class="lightbox-wrapper" id="lightbox-wrapper">
+            <img class="lightbox-content" id="lightbox-img" alt="Gallery Photo" draggable="false">
+            <!-- Invisible Protective Shield: Catches right-clicks & drags so Chrome never targets <img> -->
+            <div class="image-protection-shield" id="lightbox-shield" title="Protected Content"></div>
+            <!-- Security Watermark Overlay -->
+            <div class="media-watermark-overlay">
+                <span>© M. VAMSHI KUMAR &bull; PROTECTED MEDIA &bull; PIRACY PROHIBITED</span>
+            </div>
+        </div>
+        <div class="lightbox-security-badge">
+            <i class="fas fa-shield-alt"></i> Protected Gallery Media &bull; Downloading Restricted
+        </div>
+    </div>
+
+    <!-- Secure Certificate Viewer Modal (Protected Read-Only View) -->
+    <div id="cert-viewer-modal" class="cert-modal" role="dialog" aria-modal="true" aria-label="Certificate Viewer">
+        <div class="cert-modal-overlay" id="cert-modal-overlay"></div>
+        <div class="cert-modal-box">
+            <div class="cert-modal-header">
+                <div class="cert-header-info">
+                    <span class="cert-security-pill"><i class="fas fa-lock"></i> Protected Credential &bull; Download Disabled</span>
+                    <h3 id="cert-modal-title" class="cert-modal-title">Certificate Title</h3>
+                    <p id="cert-modal-issuer" class="cert-modal-issuer"><i class="fas fa-award"></i> Issuer</p>
+                </div>
+                <div class="cert-header-actions">
+                    <button id="cert-zoom-out" class="cert-action-btn" title="Zoom Out" aria-label="Zoom Out"><i class="fas fa-search-minus"></i></button>
+                    <span id="cert-zoom-level" class="cert-zoom-level">100%</span>
+                    <button id="cert-zoom-in" class="cert-action-btn" title="Zoom In" aria-label="Zoom In"><i class="fas fa-search-plus"></i></button>
+                    <button id="cert-zoom-reset" class="cert-action-btn" title="Reset Zoom" aria-label="Reset Zoom"><i class="fas fa-expand-arrows-alt"></i></button>
+                    <button id="cert-modal-close" class="cert-close-btn" title="Close (Esc)" aria-label="Close Certificate">&times;</button>
+                </div>
+            </div>
+            
+            <div class="cert-modal-body" id="cert-modal-body">
+                <div id="cert-loader" class="cert-loader">
+                    <div class="cert-spinner"></div>
+                    <p>Securing and rendering credential...</p>
+                </div>
+                <div class="cert-canvas-container" id="cert-canvas-container">
+                    <canvas id="cert-canvas"></canvas>
+                    <!-- Invisible Protection Layer directly on top of Canvas -->
+                    <div class="cert-shield" id="cert-shield" title="Protected Content"></div>
+                    <!-- Security Watermark Overlay -->
+                    <div class="cert-watermark-overlay" id="cert-watermark">
+                        <span>M. VAMSHI KUMAR &bull; OFFICIAL CREDENTIAL &bull; READ-ONLY PROTECTED &bull; STRICTLY NOT FOR PIRACY</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-modal-footer">
+                <div class="cert-security-note">
+                    <i class="fas fa-shield-alt"></i> Official Credential &bull; Verified under Portfolio Security Protocol &bull; Read-Only Protection Active
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms & Conditions Modal -->
+    <div id="terms-modal" class="terms-modal" role="dialog" aria-modal="true" aria-labelledby="terms-title">
+        <div class="terms-modal-overlay" id="terms-modal-overlay"></div>
+        <div class="terms-modal-box">
+            <div class="terms-modal-header">
+                <div class="terms-header-info">
+                    <span class="terms-badge"><i class="fas fa-gavel"></i> Legal & Copyright Policy</span>
+                    <h3 id="terms-title" class="terms-modal-title">Terms & Conditions of Portfolio Access</h3>
+                    <p class="terms-subtitle">Intellectual Property Protection & Anti-Piracy Policy</p>
+                </div>
+                <button id="terms-modal-close" class="terms-close-btn" aria-label="Close Terms">&times;</button>
+            </div>
+            
+            <div class="terms-modal-body">
+                <div class="terms-section">
+                    <h4><i class="fas fa-shield-alt"></i> 1. Intellectual Property & Ownership Rights</h4>
+                    <p>All content displayed across this portfolio website—including but not limited to personal photographs, event images, gallery collections, AI and technical certifications, research manuscripts, technical publications, visual layouts, and code—constitutes the exclusive personal and intellectual property of <strong>M. Vamshi Kumar</strong> (or is credited under educational fair-use to third-party institutions such as Microsoft, LinkedIn Learning, Brainware University, and IEM).</p>
+                </div>
+
+                <div class="terms-section">
+                    <h4><i class="fas fa-ban"></i> 2. Strict Prohibition on Piracy, Saving & Unauthorized Use</h4>
+                    <p>To defend against image theft, unauthorized identity misuse, credential tampering, and AI deepfake generation:</p>
+                    <ul>
+                        <li><strong>No Downloading or Extraction:</strong> You are strictly forbidden from downloading, capturing, screenshotting, scraping, saving, or hotlinking any photographs, gallery images, or AI certifications from this portfolio on any device (smartphones, tablets, laptops, or desktop computers).</li>
+                        <li><strong>Technical Anti-Tampering:</strong> Any attempts to bypass protective shields, inspect canvas buffers, rip media elements, or deploy scraping automation are considered willful digital copyright violations.</li>
+                        <li><strong>Commercial & Public Misuse:</strong> You may not republish, crop, sell, train AI models on, or falsely represent any photograph, credential, or identity asset of M. Vamshi Kumar.</li>
+                    </ul>
+                </div>
+
+                <div class="terms-section highlighted-section">
+                    <h4><i class="fas fa-file-download"></i> 3. Express Exemption for Authorized Documents</h4>
+                    <p>To support recruitment, employment verification, academic evaluation, and peer review, express permission is granted to download <strong>only</strong> the following five designated documents via their official portfolio download buttons:</p>
+                    <ol>
+                        <li><strong>Curriculum Vitae:</strong> <em>M_Vamshi_Kumar_Resume.pdf</em></li>
+                        <li><strong>Featured Research Paper:</strong> <em>Power System Analysis using ETAP (ETAP_Research.pdf)</em></li>
+                        <li><strong>Award-Winning Engineering Project:</strong> <em>Relay Based Solar Powered Street Light (Solar_Project.pdf)</em></li>
+                        <li><strong>Technical Publication:</strong> <em>Electrical Safety Awareness Booklet (Electrical_Safety_Book.pdf)</em></li>
+                        <li><strong>Industrial Internship Report:</strong> <em>33/11 KV Barasat Sub-Station Report (WBSEDCL 33-11 kv Barasat.pdf)</em></li>
+                    </ol>
+                    <p class="terms-note"><small>Note: These materials remain copyrighted and are authorized solely for recruitment, educational review, and professional evaluation.</small></p>
+                </div>
+
+                <div class="terms-section">
+                    <h4><i class="fas fa-balance-scale"></i> 4. Cyber Law & Legal Enforcement</h4>
+                    <p>Any infringement, unauthorized commercial exploitation, impersonation, or piracy of protected images and credentials will be prosecuted to the maximum extent permitted by applicable law, including the <em>Information Technology Act, 2000</em>, the <em>Indian Copyright Act, 1957</em>, and international intellectual property treaties.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h4><i class="fas fa-envelope"></i> 5. Inquiries & Written Authorization</h4>
+                    <p>For credential verification or authorized media requests, please reach out directly via email to <a href="mailto:vamshikumar172003@gmail.com" class="terms-email-link">vamshikumar172003@gmail.com</a>.</p>
+                </div>
+            </div>
+
+            <div class="terms-modal-footer">
+                <div class="terms-footer-text">
+                    <i class="fas fa-lock"></i> Protected Portfolio Security Protocol &bull; 2026
+                </div>
+                <button id="terms-accept-btn" class="btn-primary" style="padding: 0.6rem 1.6rem; font-size: 0.9rem;">I Understand & Agree</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Toast Notification -->
+    <div id="security-toast" class="security-toast" role="status" aria-live="polite">
+        <div class="security-toast-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="security-toast-msg" id="security-toast-msg">Protected Portfolio Media &bull; Downloading Restricted</div>
     </div>
     
     <!-- Scroll to Top Button -->
@@ -550,7 +695,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
-    <script src="script_v2.js?v=13"></script>
+    <!-- PDF.js for Secure Read-Only Credential Viewing -->
+    <script src="assets/pdf.min.js"></script>
+    
+    <script src="script_v2.js?v=26"></script>
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             const preloader = document.getElementById('preloader');

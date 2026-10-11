@@ -1221,15 +1221,14 @@ canvas {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.95);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10000;
+    z-index: 10050;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
-    /* backdrop-filter removed for performance */
 }
 
 .lightbox.active {
@@ -1238,12 +1237,15 @@ canvas {
 }
 
 .lightbox-content {
-    max-width: 90%;
-    max-height: 90%;
+    max-width: 90vw;
+    max-height: 85vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
     border-radius: 8px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.85);
     transform: scale(0.9);
-    transition: transform 0.3s ease, opacity 0.15s ease;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s ease;
 }
 
 .lightbox.active .lightbox-content {
@@ -1259,7 +1261,7 @@ canvas {
     font-weight: bold;
     cursor: pointer;
     transition: 0.2s;
-    z-index: 10001;
+    z-index: 10055;
 }
 
 .lightbox-close:hover,
@@ -1288,7 +1290,7 @@ canvas {
     border-radius: 0 3px 3px 0;
     user-select: none;
     -webkit-user-select: none;
-    z-index: 10001;
+    z-index: 10055;
     background-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -1604,20 +1606,21 @@ canvas {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(10, 10, 15, 0.98);
-    /* backdrop-filter removed for performance */
-    z-index: 1000;
+    background: rgba(8, 8, 14, 0.97);
+    z-index: 10004;
     display: flex;
     justify-content: center;
     align-items: center;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
+    pointer-events: none;
+    transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gallery-modal.active {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
 }
 
 .gallery-modal-close {
@@ -1627,12 +1630,14 @@ canvas {
     font-size: 40px;
     color: #fff;
     cursor: pointer;
-    z-index: 1001;
-    transition: color 0.3s ease;
+    z-index: 10006;
+    transition: color 0.2s ease, transform 0.2s ease;
+    line-height: 1;
 }
 
 .gallery-modal-close:hover {
     color: #ff6b35;
+    transform: scale(1.1);
 }
 
 .gallery-header {
@@ -1640,21 +1645,20 @@ canvas {
 }
 
 .gallery-fan-stage {
-    position: relative; /* no longer sticky */
+    position: relative;
     height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    perspective: var(--fan-perspective);
+    perspective: var(--fan-perspective, 1200px);
     transform-style: preserve-3d;
 }
 
 .gallery-fan-container {
     position: relative;
-    width: var(--fan-card-width-desktop);
-    height: var(--fan-card-height-desktop);
-    /* Set transform-style to preserve 3D for children if container moves */
+    width: var(--fan-card-width-desktop, 280px);
+    height: var(--fan-card-height-desktop, 400px);
     transform-style: preserve-3d;
 }
 
@@ -1664,15 +1668,16 @@ canvas {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Hinge from near the bottom center */
     transform-origin: 50% 120%;
-    will-change: transform, opacity;
+    transform: translate3d(var(--tx, 0px), var(--ty, 0px), var(--tz, 0px)) rotateZ(var(--rz, 0deg));
+    will-change: transform;
     cursor: pointer;
     border-radius: 18px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.6);
     background: #111;
-    transform: translateX(var(--tx, 0)) translateY(var(--ty, 0)) translateZ(var(--tz, 0)) rotateZ(var(--rz, 0)) scale(1);
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.25s ease;
 }
 
 /* -----------------------------------
@@ -1685,41 +1690,46 @@ canvas {
     transform: translateX(-50%);
     display: flex;
     gap: 15px;
-    background: rgba(40, 40, 45, 0.6);
-    padding: 10px 20px;
+    background: rgba(25, 25, 32, 0.85);
+    padding: 10px 22px;
     border-radius: 50px;
-    /* backdrop-filter removed for performance */
-    z-index: 1002;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 10010;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.4s ease 0.2s, visibility 0.4s ease 0.2s;
+    pointer-events: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .gallery-modal.active .gallery-controls {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
 }
 
 .gallery-control-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: #fff;
-    width: 45px;
-    height: 45px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    font-size: 14px;
-    transition: all 0.3s ease;
+    font-size: 16px;
+    transition: all 0.25s ease;
+    pointer-events: auto;
 }
 
 .gallery-control-btn:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 107, 53, 0.85);
+    border-color: rgba(255, 107, 53, 1);
     transform: scale(1.1);
-    color: #ff6b35;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
 }
 
 .gallery-control-btn:active {
@@ -1972,5 +1982,689 @@ canvas {
 @keyframes slideUpFade {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   PORTFOLIO SECURITY & ANTI-PIRACY DESIGN SYSTEM
+   ========================================================================== */
+
+/* 1. Global Anti-Download & Media Protection */
+img:not(.allowed-download),
+canvas:not(.allowed-download),
+.gallery-fan-card,
+.project-glass-card {
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
+    -webkit-user-drag: none !important;
+}
+
+/* Project Card Protective Container */
+.project-img-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    background: #0f0f15;
+}
+
+.project-img-container .project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    -webkit-user-drag: none !important;
+}
+
+/* Invisible Protective Overlay Shields */
+.fan-card-shield {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    background: transparent;
+    -webkit-touch-callout: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-user-drag: none !important;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.image-protection-shield,
+.cert-shield {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    background: transparent;
+    -webkit-touch-callout: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-user-drag: none !important;
+    pointer-events: auto;
+    cursor: default;
+}
+
+/* 2. Lightbox Modal Security & Watermarks */
+.lightbox-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.lightbox-security-badge {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 15, 22, 0.88);
+    border: 1px solid rgba(255, 107, 53, 0.45);
+    color: #ffaa80;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 50px;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    z-index: 10055;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.media-watermark-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 11;
+    overflow: hidden;
+}
+
+.media-watermark-overlay span {
+    transform: rotate(-22deg);
+    color: rgba(255, 255, 255, 0.18);
+    font-size: clamp(0.85rem, 2vw, 1.3rem);
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border: 2px dashed rgba(255, 255, 255, 0.15);
+    padding: 10px 28px;
+    border-radius: 8px;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+}
+
+/* 3. Secure Read-Only Certificate Viewer Modal */
+.cert-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10005;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.cert-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cert-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 5, 10, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.cert-modal-box {
+    position: relative;
+    z-index: 1;
+    width: 94%;
+    max-width: 940px;
+    max-height: 92vh;
+    background: rgba(18, 18, 26, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 107, 53, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.94);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cert-modal.active .cert-modal-box {
+    transform: scale(1);
+}
+
+.cert-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(25, 25, 35, 0.75);
+}
+
+.cert-security-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: rgba(255, 107, 53, 0.15);
+    border: 1px solid rgba(255, 107, 53, 0.4);
+    color: #ff8c5a;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 0.35rem;
+}
+
+.cert-modal-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.cert-modal-issuer {
+    font-size: 0.85rem;
+    color: #4db8ff;
+    margin: 0.25rem 0 0 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cert-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cert-action-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #eee;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+}
+
+.cert-action-btn:hover {
+    background: rgba(255, 107, 53, 0.25);
+    border-color: #ff6b35;
+    color: #ff6b35;
+    transform: translateY(-1px);
+}
+
+.cert-zoom-level {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    min-width: 44px;
+    text-align: center;
+}
+
+.cert-close-btn {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 0 0 8px;
+    transition: color 0.2s ease;
+}
+
+.cert-close-btn:hover {
+    color: #ff6b35;
+}
+
+.cert-modal-body {
+    position: relative;
+    flex: 1;
+    overflow: auto;
+    padding: 1.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: #0b0b10;
+    min-height: 420px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.cert-loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: rgba(11, 11, 16, 0.95);
+    z-index: 20;
+    color: #aaa;
+    font-size: 0.9rem;
+    transition: opacity 0.3s;
+}
+
+.cert-spinner {
+    width: 44px;
+    height: 44px;
+    border: 3px solid rgba(255, 107, 53, 0.2);
+    border-top-color: #ff6b35;
+    border-radius: 50%;
+    animation: certSpin 0.8s linear infinite;
+}
+
+@keyframes certSpin {
+    to { transform: rotate(360deg); }
+}
+
+.cert-canvas-container {
+    position: relative;
+    display: inline-block;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.75);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: transform 0.2s ease;
+    transform-origin: top center;
+    background: #111;
+}
+
+#cert-canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    pointer-events: none;
+}
+
+.cert-shield {
+    position: absolute;
+    inset: 0;
+    z-index: 15;
+    background: transparent;
+}
+
+.cert-watermark-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 12;
+    overflow: hidden;
+}
+
+.cert-watermark-overlay span {
+    transform: rotate(-25deg);
+    color: rgba(255, 255, 255, 0.14);
+    font-size: clamp(0.75rem, 1.8vw, 1.15rem);
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border: 2px dashed rgba(255, 255, 255, 0.15);
+    padding: 10px 24px;
+    border-radius: 8px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
+}
+
+.cert-modal-footer {
+    padding: 0.85rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(20, 20, 28, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cert-security-note {
+    font-size: 0.78rem;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+}
+
+/* 4. High-Tech Security Toast Notification */
+.security-toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 2147483647;
+    max-width: 440px;
+    background: rgba(16, 16, 24, 0.96);
+    border: 1px solid rgba(255, 107, 53, 0.5);
+    border-left: 4px solid #ff6b35;
+    border-radius: 12px;
+    padding: 14px 18px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 107, 53, 0.25);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.security-toast.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.security-toast-icon {
+    font-size: 1.45rem;
+    color: #ff6b35;
+    flex-shrink: 0;
+    animation: shieldPulse 1.5s infinite alternate;
+}
+
+@keyframes shieldPulse {
+    from { transform: scale(1); filter: drop-shadow(0 0 2px rgba(255, 107, 53, 0.4)); }
+    to { transform: scale(1.12); filter: drop-shadow(0 0 8px rgba(255, 107, 53, 0.8)); }
+}
+
+.security-toast-msg {
+    color: #f0f0f5;
+    font-size: 0.88rem;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+/* 5. Footer Enhancements & Terms Button */
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 1.5rem 1.5rem 2.5rem 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ddd;
+}
+
+.footer-separator {
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+}
+
+.terms-link-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #ffaa80;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: all 0.25s ease;
+}
+
+.terms-link-btn:hover {
+    background: rgba(255, 107, 53, 0.2);
+    border-color: #ff6b35;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.25);
+}
+
+.footer-security-tagline {
+    font-size: 0.8rem;
+    color: #888;
+    margin: 0;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* 6. Terms & Conditions Modal Dialog */
+.terms-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10006;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.terms-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.terms-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 5, 10, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.terms-modal-box {
+    position: relative;
+    z-index: 1;
+    width: 92%;
+    max-width: 840px;
+    max-height: 88vh;
+    background: rgba(18, 18, 26, 0.97);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 107, 53, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.terms-modal.active .terms-modal-box {
+    transform: scale(1);
+}
+
+.terms-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1.5rem 1.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(25, 25, 35, 0.75);
+}
+
+.terms-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: rgba(255, 107, 53, 0.15);
+    border: 1px solid rgba(255, 107, 53, 0.4);
+    color: #ff8c5a;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 0.4rem;
+}
+
+.terms-modal-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+
+.terms-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0.2rem 0 0 0;
+}
+
+.terms-close-btn {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.terms-close-btn:hover {
+    color: #ff6b35;
+}
+
+.terms-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.35rem;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: #ccc;
+}
+
+.terms-section h4 {
+    color: #fff;
+    font-size: 1.05rem;
+    margin: 0 0 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.terms-section h4 i {
+    color: #ff6b35;
+    font-size: 1rem;
+}
+
+.terms-section p {
+    margin: 0 0 0.5rem 0;
+    color: #bbb;
+}
+
+.terms-section ul,
+.terms-section ol {
+    padding-left: 1.4rem;
+    margin: 0.4rem 0 0.6rem 0;
+}
+
+.terms-section li {
+    margin-bottom: 0.4rem;
+}
+
+.highlighted-section {
+    background: rgba(46, 204, 113, 0.08);
+    border: 1px solid rgba(46, 204, 113, 0.25);
+    border-radius: 12px;
+    padding: 1.25rem;
+}
+
+.highlighted-section h4 i {
+    color: #2ecc71;
+}
+
+.terms-note {
+    color: #a0d8b3;
+    margin-top: 0.5rem;
+}
+
+.terms-email-link {
+    color: #ffaa80;
+    text-decoration: underline;
+}
+
+.terms-modal-footer {
+    padding: 1rem 1.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(22, 22, 30, 0.75);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.terms-footer-text {
+    font-size: 0.8rem;
+    color: #777;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 7. Anti-Piracy Print Protection */
+@media print {
+    body * {
+        visibility: hidden !important;
+    }
+    body::before {
+        content: "CONFIDENTIAL & PROPRIETARY MATERIAL: © 2026 M. Vamshi Kumar. Printing, scanning, or unauthorized duplication of this portfolio, its photographs, or certificates is strictly prohibited under Intellectual Property and Cyber Law.";
+        visibility: visible !important;
+        display: block !important;
+        position: fixed;
+        top: 35%;
+        left: 10%;
+        right: 10%;
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+        color: #d9534f;
+        border: 3px solid #d9534f;
+        padding: 30px;
+        background: #fff;
+    }
 }
 
